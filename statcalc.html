@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>능력치 계산기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="darkModeToggle">
+            <input type="checkbox" id="darkModeToggle" />
+            <div class="slider round"></div>
+        </label>
+        <span class="theme-text">다크모드</span>
+    </div>
+
+    <div class="container">
+        <h1>최적 스탯 계산</h1>
+
+        <section class="input-section">
+            <h3>포인트</h3>
+            <div class="input-grid">
+                <div class="input-item">
+                    <label>최대 포인트 <span class="info-icon" data-tooltip="...">?</span></label>
+                    <div class="control-wrapper">
+                        <button type="button" class="btn-minus" onclick="stepUpdate('maxPoints', -1)">−</button>
+                        <input type="number" id="maxPoints" value="500">
+                        <button type="button" class="btn-plus" onclick="stepUpdate('maxPoints', 1)">+</button>
+                    </div>
+                    <input type="range" class="range-slider" min="0" max="500" step="1" value="500"
+                        oninput="document.getElementById('maxPoints').value = this.value; calculateStats();">
+                </div>
+                <div class="input-item">
+                    <label>고정 체력 포인트 <span class="info-icon" data-tooltip="체력이 일정 이상 필요 할 때 고정하고 싶은 체력 포인트">?</span></label>
+                    <input type="number" id="fixedHpPoints" value="0" min="0" step="1">
+                </div>
+                <div class="input-item">
+                    <label>현재 공격력 포인트 <span class="info-icon" data-tooltip="현재 영웅의 공격력 포인트">?</span></label>
+                    <input type="number" id="attackPoints" value="0" min="0" step="1">
+                </div>
+                <div class="input-item">
+                    <label>현재 치피 포인트 <span class="info-icon" data-tooltip="현재 영웅의 치명피해 포인트">?</span></label>
+                    <input type="number" id="critDamagePoints" value="0" min="0" step="1">
+                </div>
+                <div class="input-item">
+                    <label>현재 체력 포인트 <span class="info-icon" data-tooltip="현재 영웅의 체력 포인트">?</span></label>
+                    <input type="number" id="hpPoints" value="0" min="0" step="1">
+                </div>
+            </div>
+
+            <h3 style="margin-top: 20px;">현재 영웅 스탯 <span class="info-icon" data-tooltip="현재 영웅 능력치 창에서 보이는 수치">?</span></h3>
+            <div class="input-grid">
+                <div class="input-item">
+                    <label>공격력</label>
+                    <input type="number" id="currentAttack" value="0" min="0" step="1">
+                </div>
+                <div class="input-item">
+                    <label>치명피해(%)</label>
+                    <input type="number" id="currentCritDamage" value="0" min="0" step="1">
+                </div>
+                <div class="input-item">
+                    <label>체력</label>
+                    <input type="number" id="currentHp" value="0" min="0" step="1">
+                </div>
+                <div class="input-item">
+                    <label>공격력 증폭(%)</label>
+                    <input type="number" id="attackMultiplier" value="0" min="0" step="0.1">
+                </div>
+                <div class="input-item">
+                    <label>체력 증폭(%)</label>
+                    <input type="number" id="hpMultiplier" value="0" min="0" step="0.1">
+                </div>
+                <div class="input-item">
+                    <label>체력 비례 공증(%)</label>
+                    <input type="number" id="attackScalingByHp" value="0" min="0" step="0.1">
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="result-section">
+            <h3>최적화 포인트</h3>
+            <div class="menu-grid"> <div class="menu-tile" style="cursor: default; border-color: #4CAF50;">
+                    <h4 style="color: #4CAF50;">추천 포인트 배분</h4>
+                    <p>공격력: <strong id="finalAtkPoints">0</strong></p>
+                    <p>체력: <strong id="finalHpPoints">0</strong></p>
+                    <p>치명피해: <strong id="finalCritPoints">0</strong></p>
+                </div>
+                <div class="menu-tile" style="cursor: default;"> <h4 style="color: #4CAF50;">예상 최종 스탯</h4>
+                    <p>공격력: <span id="finalAtkStat">0</span></p>
+                    <p>체력: <span id="finalHpStat">0</span></p>
+                    <p>치명피해: <span id="finalCritStat">0</span></p>
+                </div>
+            </div>
+        </section>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="index.html" style="text-decoration: none; color: #666;">← 메인 메뉴로 돌아가기</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
