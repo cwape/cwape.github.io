@@ -22,14 +22,182 @@ body.dark-mode {
     padding-top: 50px; /* 상단 스위치와 겹치지 않게 여백 */
 }
 
+/* 1. 로고를 중앙에 배치하는 컨테이너 */
+.header-container {
+    display: flex;
+    justify-content: center;
+    padding: 0px 0 10px 0; /* 위쪽 여백 15px로 깔끔하게 고정 */
+    position: relative;
+    width: 100%;
+}
+
+/* 2. 로고 배지 (글자 주변에만 배경색) */
+.logo-badge {
+    background-color: #1a1a1a;
+    color: rgb(234, 0, 0);
+    padding: 8px 22px; /* 상하 8px, 좌우 22px로 비율 조정 */
+    border-radius: 50px; /* 완벽하게 둥근 캡슐 모양 */
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 1px 16px rgba(33, 243, 121, 0.11);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.logo-badge:hover {
+    background-color: #242424;
+    transform: scale(1.03); /* 크기만 아주 살짝 키워서 클릭감 제공 */
+}
+
+/* 헤더 전체 배경 및 높이 고정 */
+.main-header {
+    width: 100%;
+    padding: 10px 0;
+    position: relative;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 모든 요소의 높이 중앙 정렬 */
+    padding: 0 20px;
+    position: relative;
+}
+
+/* 3분할 섹션 */
+.nav-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.nav-section.center {
+    justify-content: center;
+    flex: 0 0 auto; /* 로고는 공간을 억지로 줄이지 않음 */
+}
+.nav-section.right {
+    justify-content: flex-end;
+}
+
+/* 로고: 절대 잘리지 않게 설정 */
+.logo-badge {
+    background-color: #1a1a1a;
+    color: rgb(234, 0, 0);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap; /* 글자 잘림/줄바꿈 방지 필수! */
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.2);
+}
+
+/* 햄버거 버튼 */
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* 바 사이 간격 */
+    padding: 5px;
+}
+.bar {
+    width: 22px;
+    height: 3px;
+    background-color: #2E7D32;
+    border-radius: 2px;
+}
+
+/* 드롭다운: 목록이 수직으로 나오게 설정 */
+.nav-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    background-color: white;
+    min-width: 200px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    flex-direction: column; /* 목록을 세로로 정렬! */
+    overflow: hidden;
+}
+
+/* 메뉴 내부 다크모드 섹션 */
+.menu-dark-mode {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f9f9f9; 
+    border-top: 1px solid #eee;
+}
+
+/* 2. 다크모드 활성화 시 (구분감 확실하게!) */
+body.dark-mode .menu-dark-mode {
+    /* 배경을 메뉴 리스트보다 아주 살짝 더 어둡게 해서 구분감을 줍니다 */
+    background-color: #242424; 
+    border-top: 1px solid #444;
+}
+
+/* 3. 다크모드일 때 글자색 강제 설정 */
+body.dark-mode .menu-dark-mode .theme-text {
+    color: #ffffff !important; /* 순백색으로 올려서 가독성 확보 */
+    font-weight: 700; /* 글자를 조금 더 두껍게 해서 강조 */
+    opacity: 0.9; /* 너무 눈부시지 않게 살짝만 조절 */
+}
+
+/* (보너스) 햄버거 메뉴 리스트 자체의 다크모드 배경도 점검 */
+body.dark-mode .nav-content {
+    background-color: #2c2c2c; /* 전체 메뉴 배경 */
+    border: 1px solid #444;
+}
+
+/* 메뉴 안의 텍스트 스타일 */
+.menu-dark-mode .theme-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+
+body.dark-mode .menu-dark-mode .theme-text {
+    color: #ccc;
+}
+
+/* 오른쪽 섹션이 비어도 중앙 정렬을 유지하기 위해 */
+.nav-section.right {
+    flex: 1; 
+}
+
+.nav-content.show { display: flex; } /* 열릴 때 flex로 변경 */
+
+.nav-content a {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f0f0;
+}
+.nav-content a:last-child { border-bottom: none; }
+.nav-content a:hover { background-color: #f8f9fa; }
+
+/* 다크모드 대응 */
+body.dark-mode .nav-content { background-color: #2c2c2c; }
+body.dark-mode .nav-content a { color: #eee; border-color: #3d3d3d; }
+body.dark-mode .nav-content a:hover { background-color: #3d3d3d; }
+
 /* 3. 다크모드 토글 스위치 (Component) */
 .theme-switch-wrapper {
     display: flex;
     align-items: center;
     gap: 10px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    /* absolute와 top을 제거하여 부모(.header-inner)의 align-items: center 설정을 따르게 합니다 */
+    position: relative; 
+    /* 오른쪽 끝 정렬은 이미 부모의 justify-content: space-between이 해주고 있으므로 여백 설정 불필요 */
 }
 
 .theme-switch {
@@ -73,9 +241,11 @@ input:checked + .slider:before {
     transform: translateX(20px);
 }
 
+/* 텍스트 높이 정렬 */
 .theme-text {
     font-size: 14px;
     font-weight: 500;
+    line-height: 1; /* 텍스트 줄높이를 맞춰서 스위치와 수평을 맞춤 */
 }
 
 /* 4. 메인 메뉴 타일 (index.html 전용) */
@@ -148,6 +318,15 @@ input:checked + .slider:before {
     }
 }
 
+input[type="range"].range-slider {
+    width: 100%; 
+    margin: 5px 0;
+    /* 브라우저가 기본으로 넣는 양옆 여백을 제거 */
+    padding: 0; 
+    cursor: pointer;
+    /* 슬라이더 높이를 고정해서 위치 이탈 방지 */
+}
+
 /* 버튼과 인풋을 감싸는 컨테이너 */
 .control-wrapper {
     display: flex;
@@ -158,6 +337,28 @@ input:checked + .slider:before {
     background: #fff;
     transition: border-color 0.3s;
 }
+
+/* 스위치 토글 디자인 */
+.slider-toggle {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 20px;
+}
+.slider-toggle:before {
+    position: absolute;
+    content: "";
+    height: 14px; width: 14px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider-toggle { background-color: #2196F3; } /* 체크 시 파란색(체력) */
+input:checked + .slider-toggle:before { transform: translateX(20px); }
+
 
 /* 포커스 되었을 때 테두리를 초록색으로! */
 .control-wrapper:focus-within {
@@ -236,6 +437,16 @@ body.dark-mode .btn-plus:hover {
     margin-bottom: 15px;
 }
 
+/* 포인트 옆의 커다란 툴팁 아이콘 전용 */
+.info-icon.large-icon {
+    width: 22px;         /* 크기 확대 */
+    height: 22px;        /* 크기 확대 */
+    font-size: 15px;     /* 물음표 글자 크기 확대 */
+    line-height: 22px;   /* 원의 높이와 맞춰서 중앙 정렬 */
+    vertical-align: middle; /* 글자 라인에 맞춤 */
+    margin-bottom: 2px;  /* 미세한 높이 조절 */
+}
+
 /* 2. 툴팁 아이콘 스타일 (초록색 상징색 활용) */
 .info-icon {
     display: inline-block;
@@ -300,3 +511,170 @@ body.dark-mode .input-item input {
     color: white;
     border-color: #555;
 }
+
+/* 컨테이너 및 표 중앙 정렬 */
+.container {
+    max-width: 900px; /* 표가 길어지므로 폭을 살짝 넓힘 */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 탭 스타일 */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 4px; /* 버튼 사이 간격을 10px에서 4px로 줄임 */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* 탭 버튼 스타일 */
+.tab-btn {
+    flex: 1; /* 4개 버튼이 동일한 너비를 가지도록 함 */
+    padding: 10px 2px; /* 좌우 패딩을 최소화(2px) */
+    font-size: 0.9rem; /* 폰트 크기를 살짝 줄임 */
+    white-space: nowrap; /* 글자가 절대 줄바꿈되지 않게 함 */
+    text-align: center;
+    border-radius: 6px;
+}
+
+/* 모바일 전용 (더 작은 화면 대응) */
+@media (max-width: 380px) {
+    .tab-btn {
+        font-size: 0.8rem; /* 아주 작은 화면에선 폰트를 더 작게 */
+        padding: 8px 1px;
+    }
+}
+
+/* 인게임 색상 적용 */
+.tab-btn:nth-child(1).active { background-color: #FFA000; color: white; } /* 전설: 주황 */
+.tab-btn:nth-child(2).active { background-color: #D32F2F; color: white; } /* 신화: 빨강 */
+.tab-btn:nth-child(3).active { background-color: #FDD835; color: #333; }  /* 유일: 노랑 */
+.tab-btn.active.calc-tab {
+    background-color: #4CAF50; /* 초록색 */
+    color: white;
+    border-color: #388E3C;
+}
+
+/* 계산기 내부 버튼도 초록색으로 맞춤 */
+.do-calc-btn {
+    width: 100%;
+    padding: 15px;
+    background: #4CAF50; /* 초록색으로 변경 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.do-calc-btn:active {
+    background: #388E3C;
+}
+
+
+/* 탭 활성화 상태 (인게임 컬러) */
+.tab-btn.active:nth-child(1) { background-color: #FFA000; color: white; border-color: #FF8F00; }
+.tab-btn.active:nth-child(2) { background-color: #D32F2F; color: white; border-color: #B71C1C; }
+.tab-btn.active:nth-child(3) { background-color: #FDD835; color: #333; border-color: #FBC02D; }
+
+/* 표 중앙 정렬 */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.upgrade-table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    table-layout: fixed; /* [중요] 열 너비를 고정합니다 */
+    text-align: center;  /* [추가] 표 안의 모든 기본 텍스트 중앙 정렬 */
+}
+
+/* 열 너비 비율 설정 (합계 100%) */
+.upgrade-table th:nth-child(1), .upgrade-table td:nth-child(1) { width: 15%; }
+.upgrade-table th:nth-child(2), .upgrade-table td:nth-child(2) { width: 55%; }
+.upgrade-table th:nth-child(3), .upgrade-table td:nth-child(3) { width: 30%; }
+
+/* 헤더와 셀 공통 패딩 */
+.upgrade-table th, 
+.upgrade-table td {
+    padding: 12px 5px; /* 상하 12px, 좌우 5px */
+    vertical-align: middle; /* 세로 방향 중앙 정렬 */
+    word-break: keep-all;   /* 단어 단위로 줄바꿈 방지 (한글 가독성) */
+}
+
+/* 두 번째 열(재료) 중앙 정렬 확인 */
+.upgrade-table td:nth-child(2) {
+    text-align: center; /* 왼쪽 정렬 대신 중앙 정렬로 변경 */
+}
+
+/* 비고란 글자가 너무 길어질 경우 대비 */
+.note-cell {
+    font-size: 0.85rem;
+    color: #777;
+}
+body.dark-mode .note-cell {
+    color: #bbb;
+}
+
+.calc-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: 10px;
+}
+body.dark-mode .calc-card { background: #2c2c2c; }
+
+.select-group { margin: 15px 0; text-align: left; }
+.select-group label { display: block; font-weight: bold; margin-bottom: 8px; color: #666; }
+body.dark-mode .select-group label { color: #aaa; }
+
+.select-row { display: flex; gap: 10px; }
+.select-row select {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background-color: #fff;
+}
+body.dark-mode .select-row select { background: #333; color: #fff; border-color: #444; }
+
+.do-calc-btn {
+    width: 100%;
+    padding: 15px;
+    background: #444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: center; /* [추가] 텍스트 중앙 정렬 */
+    border: 1px solid #eee;
+}
+
+/* 결과 내 강조 텍스트 정렬 */
+.result-box b, .result-box span {
+    display: inline-block; /* 줄바꿈 시에도 정렬 유지 */
+    margin: 2px 0;
+}
+
+
+body.dark-mode .result-box { background: #383838; }
+
+.highlight { color: #D32F2F; font-weight: bold; font-size: 1.5rem; }

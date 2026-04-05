@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LacyBot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="nav-section left">
+                <button class="hamburger-btn" onclick="toggleNavMenu()">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <div id="navDropdown" class="nav-content">
+                    <a href="statcalc.html">레벨 포인트</a>
+                    <a href="hero-legend.html">영웅 강화</a>
+                    <a href="hero-skill.html">영웅 스킬</a>
+
+                    <div class="menu-dark-mode">
+                        <span class="theme-text">Dark Mode</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-section center">
+                <a href="index.html" class="logo-badge">Racy Bot</a>
+            </div>
+
+            <div class="nav-section right"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tab-container">
+            <button class="tab-btn" onclick="changeTab('전설', this)">전설</button>
+            <button class="tab-btn" onclick="changeTab('신화', this)">신화</button>
+            <button class="tab-btn" onclick="changeTab('유일', this)">유일</button>
+            <button class="tab-btn calc-tab active" onclick="changeTab('계산', this)">계산</button>
+        </div>
+
+        <div id="table-view" class="view-section" style="display: none;">
+            <div class="table-container">
+                <table class="upgrade-table">
+                    <thead>
+                        <tr>
+                            <th>목표 강화</th>
+                            <th>필요 재료</th>
+                            <th>비고</th>
+                        </tr>
+                    </thead>
+                    <tbody id="upgrade-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="calc-view" class="view-section" style="display: none;">
+            <div class="calc-card">
+                <h3>전설 영웅 필요수 계산</h3>
+
+                <div class="select-group">
+                    <label>현재 상태</label>
+                    <div class="select-row">
+                        <select id="currRank" onchange="updateLevels('curr')">
+                            <option value="없음">없음</option>
+                            <option value="전설">전설</option>
+                            <option value="신화">신화</option>
+                            <option value="유일">유일</option>
+                        </select>
+                        <select id="currLevel"></select>
+                    </div>
+                </div>
+
+                <div class="select-group">
+                    <label>목표 상태</label>
+                    <div class="select-row">
+                        <select id="targetRank" onchange="updateLevels('target')">
+                            <option value="전설">전설</option>
+                            <option value="신화" selected>신화</option>
+                            <option value="유일">유일</option>
+                        </select>
+                        <select id="targetLevel"></select>
+                    </div>
+                </div>
+
+                <button class="do-calc-btn" onclick="calculateNeed()">계산</button>
+
+                <div id="calc-result" class="result-box">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
