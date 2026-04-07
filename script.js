@@ -18,7 +18,7 @@ if (darkModeToggle) {
     // [2. 페이지 로드 시 실행]
     // 우선 로컬 저장소에 저장된 설정이 있는지 확인합니다.
     const savedTheme = localStorage.getItem('theme');
-    
+
     if (savedTheme) {
         // 저장된 설정이 있다면 그 설정을 따릅니다.
         applyTheme(savedTheme);
@@ -46,7 +46,7 @@ function toggleNavMenu() {
 window.addEventListener('click', (e) => {
     const dropdown = document.getElementById('navDropdown');
     const hamburger = document.querySelector('.hamburger-btn');
-    
+
     if (dropdown.classList.contains('show')) {
         // 클릭한 대상이 햄버거 버튼도 아니고 드롭다운 내부도 아닐 때만 닫기
         if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
@@ -60,25 +60,25 @@ window.addEventListener('click', (e) => {
    ========================================== */
 
 // 계산 모드 상태 변수 및 토글 함수
-let isHpBasedMode = false; 
+let isHpBasedMode = false;
 
 function toggleCalcMode() {
     const toggle = document.getElementById('calcModeToggle');
     const modeText = document.getElementById('modeText');
-    
+
     isHpBasedMode = toggle.checked;
-    
+
     if (isHpBasedMode) {
         modeText.innerText = "체력 기반";
-        modeText.style.color = "#2196F3"; 
+        modeText.style.color = "#2196F3";
     } else {
         modeText.innerText = "공격 기반";
-        modeText.style.color = "#4CAF50"; 
+        modeText.style.color = "#4CAF50";
     }
-    
-    calculateStats(); 
+
+    calculateStats();
 }
-   
+
 function calculateStats() {
     console.log(isHpBasedMode);
     // [1. 입력값 가져오기]
@@ -113,13 +113,13 @@ function calculateStats() {
     // 3) 고정 수치 제외 나머지를 치피에 투자했을 경우의 치명피해
     const critWithFixedHp = currentCritDamage + (critDamagePerPoint * (hpPoints - fixedHpPoints));
 
-        // [3. 계산 모드 선택]
+    // [3. 계산 모드 선택]
     if (isHpBasedMode) {
-         // 분자 (Numerator)
+        // 분자 (Numerator)
         const hpNum = (hpPerPoint * (attackScalingByHp / 100) * (1 + hpMultiplier / 100) * (1 + attackMultiplier / 100) * (1 + critWithFixedHp / 100)) - (critDamagePerPoint / 100 * atkWithFixedHp);
         // 분모 (Denominator)
         const hpDen = 2 * (critDamagePerPoint / 100) * hpPerPoint * (1 + hpMultiplier / 100) * (attackScalingByHp / 100) * (1 + attackMultiplier / 100);
-        
+
         const rawOptHpPoints = Math.round(hpNum / hpDen) - hpPoints;
 
         // 2) 범위 내 보정 (clampedHpPoints)
@@ -189,7 +189,20 @@ function calculateStats() {
     document.getElementById('finalAtkStat').innerText = Math.floor(finalAtkStat).toLocaleString();
     document.getElementById('finalCritStat').innerText = finalCritStat.toLocaleString() + "%";
     document.getElementById('finalHpStat').innerText = Math.floor(finalHpStat).toLocaleString();
-    document.getElementById('finalDamageIncreaseRate').innerText = finalDamageIncreaseRate.toFixed(1) + "%";
+
+    const rateElement = document.getElementById('finalDamageIncreaseRate');
+    const rateValue = finalDamageIncreaseRate.toFixed(1);
+
+    if (finalDamageIncreaseRate > 0) {
+        // 상승 시: + 기호와 red 클래스 적용
+        rateElement.innerHTML = `<span class="stat-up">+${rateValue}%</span>`;
+    } else if (finalDamageIncreaseRate < 0) {
+        // 하락 시: - 기호(이미 포함됨)와 blue 클래스 적용
+        rateElement.innerHTML = `<span class="stat-down">${rateValue}%</span>`;
+    } else {
+        // 변화 없을 시
+        rateElement.innerHTML = `<span class="stat-none">0.0%</span>`;
+    }
 }
 
 // 입력창의 값이 바뀔 때마다 실시간으로 계산 실행
@@ -213,7 +226,7 @@ if (document.getElementById('maxPoints')) {
             // 1. 포인트 관련 입력창 (정수만 허용)
             if (e.target.id.includes('Points')) {
                 e.target.value = Math.floor(value);
-            } 
+            }
             // 2. 증폭/비율 관련 입력창 (소수점 첫째 자리까지 허용)
             else if (e.target.id.includes('Multiplier') || e.target.id.includes('Scaling')) {
                 // 소수점 둘째 자리에서 반올림하여 첫째 자리까지 표시 (ex: 1.55 -> 1.6)
@@ -231,10 +244,10 @@ if (document.getElementById('maxPoints')) {
 
 // 모바일 터치 대응: 툴팁을 터치했을 때 사라지지 않게 하거나 제어 (필요 시)
 document.querySelectorAll('.info-icon').forEach(icon => {
-    icon.addEventListener('touchstart', function() {
+    icon.addEventListener('touchstart', function () {
         this.classList.add('active');
     });
-    icon.addEventListener('touchend', function() {
+    icon.addEventListener('touchend', function () {
         setTimeout(() => this.classList.remove('active'), 2000); // 2초 뒤 자동 사라짐
     });
 });
@@ -243,7 +256,7 @@ document.querySelectorAll('.info-icon').forEach(icon => {
 function stepUpdate(id, step) {
     const input = document.getElementById(id);
     const slider = document.querySelector(`input[type="range"][oninput*="${id}"]`);
-    
+
     let currVal = parseFloat(input.value) || 0;
     const isDecimal = id.includes('Multiplier') || id.includes('Scaling');
     const finalStep = isDecimal ? (step * 0.1) : step;
@@ -256,7 +269,7 @@ function stepUpdate(id, step) {
 
     if (nextVal < minLimit) nextVal = minLimit;
     if (nextVal > maxLimit) nextVal = maxLimit;
-    
+
     const finalVal = isDecimal ? nextVal.toFixed(1) : Math.floor(nextVal);
     input.value = finalVal;
 
@@ -285,7 +298,7 @@ document.querySelectorAll('input[type="number"]').forEach(numInput => {
 });
 
 /* ==========================================
-   3. 
+   3. 영웅 강화
    ========================================== */
 
 
@@ -345,15 +358,15 @@ window.onload = () => {
 function renderTable(rank) {
     const tbody = document.getElementById('upgrade-tbody');
     const table = document.querySelector('.upgrade-table');
-    
+
     // 계산 탭 컬러를 포함한 테마 설정
-    const colors = { 
-        '전설': '#FFA000', 
-        '신화': '#D32F2F', 
-        '유일': '#FDD835', 
-        '계산': '#4CAF50' 
+    const colors = {
+        '전설': '#FFA000',
+        '신화': '#D32F2F',
+        '유일': '#FDD835',
+        '계산': '#4CAF50'
     };
-    
+
     table.style.borderTop = `6px solid ${colors[rank]}`;
 
     tbody.innerHTML = upgradeData
@@ -371,7 +384,7 @@ function renderTable(rank) {
 function changeTab(rank, btn) {
     const tableView = document.getElementById('table-view');
     const calcView = document.getElementById('calc-view');
-    
+
     // 모든 탭 버튼 비활성화 후 현재 버튼 활성화
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -392,9 +405,9 @@ function changeTab(rank, btn) {
 // 등급별 가능한 강화 수치 정의
 const rankLevels = {
     "없음": ["0"],
-    "전설": ["0","1","2","3","4","5","6","7","8","9"],
-    "신화": ["0","1","2","3","4","5","6","7","8","9","10","11","12"],
-    "유일": ["0","1","2","3","4","5","6","7","8","9","10","11","12"]
+    "전설": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    "신화": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    "유일": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 };
 
 // 선택한 등급에 따라 강화 드롭다운 업데이트
@@ -404,37 +417,11 @@ function updateLevels(type) {
     levelSelect.innerHTML = rankLevels[rank].map(lv => `<option value="${lv}">${lv}강</option>`).join('');
 }
 
-function calculateNeed() {
-    const currR = document.getElementById('currRank').value;
-    const currL = document.getElementById('currLevel').value;
-    const targetR = document.getElementById('targetRank').value;
-    const targetL = document.getElementById('targetLevel').value;
-
-    // 없음인 경우 total 0 처리
-    const getVal = (r, l) => {
-        if (r === "없음") return 0;
-        const found = upgradeData.find(d => d.rank === r && d.level === l);
-        return found ? found.total : 0;
-    };
-
-    const currTotal = getVal(currR, currL);
-    const targetTotal = getVal(targetR, targetL);
-    const diff = targetTotal - currTotal;
-
-    const resDiv = document.getElementById('calc-result');
-    if (diff <= 0) {
-        resDiv.innerHTML = "이미 목표 등급이거나 그 이상입니다! 😎";
-    } else {
-        resDiv.innerHTML = `${currR}+${currL}</b>에서 ${targetR}+${targetL}</b>까지<br>
-                            필요한 전설 영웅은 ${diff}명 입니다.`;
-    }
-}
-
 // 탭 전환 함수 수정
 function changeTab(rank, btn) {
     const tableView = document.getElementById('table-view');
     const calcView = document.getElementById('calc-view');
-    
+
     // 버튼 효과
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -450,3 +437,298 @@ function changeTab(rank, btn) {
         renderTable(rank);
     }
 }
+
+/* --- 영웅 추가 기능 관련 자바스크립트 --- */
+
+// 1. 새로운 입력 칸 추가 (삭제 버튼 포함)
+function addHeroInput() {
+    const list = document.getElementById('curr-hero-list');
+    const heroCount = list.getElementsByClassName('curr-hero-item').length + 1;
+
+    const newHero = document.createElement('div');
+    newHero.className = 'select-group curr-hero-item';
+    newHero.innerHTML = `
+        <div class="hero-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <label>보유 영웅 ${heroCount}</label>
+            <button type="button" class="remove-hero-btn" onclick="removeHeroInput(this)" style="background:none; border:none; color:#ff4444; cursor:pointer; font-weight:bold;">삭제</button>
+        </div>
+        <div class="select-row">
+            <select class="currRank" onchange="updateLevelsByElement(this)">
+                <option value="없음">없음</option>
+                <option value="전설">전설</option>
+                <option value="신화">신화</option>
+                <option value="유일">유일</option>
+            </select>
+            <select class="currLevel"></select>
+        </div>
+    `;
+    list.appendChild(newHero);
+    updateLevelsByElement(newHero.querySelector('.currRank'));
+}
+
+// 3. 삭제 후 "보유 영웅 1, 2..." 번호 다시 매기기
+function reorderHeroLabels() {
+    const items = document.getElementsByClassName('curr-hero-item');
+    Array.from(items).forEach((item, index) => {
+        item.querySelector('label').innerText = `보유 영웅 ${index + 1}`;
+    });
+}
+
+// 2. 입력 칸 삭제 함수
+function removeHeroInput(btn) {
+    const item = btn.closest('.curr-hero-item');
+    const list = document.getElementById('curr-hero-list');
+
+    // 최소 1개는 남겨두기
+    if (list.getElementsByClassName('curr-hero-item').length > 1) {
+        item.remove();
+        reorderHeroLabels(); // 번호 재정렬
+    } else {
+        alert("최소 한 명의 영웅 상태는 입력해야 합니다.");
+    }
+}
+
+// 2. 동적 생성된 드롭다운의 레벨 업데이트
+function updateLevelsByElement(rankSelect) {
+    const rank = rankSelect.value;
+    const levelSelect = rankSelect.nextElementSibling; // 바로 옆의 currLevel 선택
+
+    if (rankLevels[rank]) {
+        levelSelect.innerHTML = rankLevels[rank].map(lv => `<option value="${lv}">${lv}강</option>`).join('');
+    }
+}
+
+// 3. 계산 함수 (모든 보유 영웅 가치 합산)
+function calculateNeed() {
+    const currRanks = document.getElementsByClassName('currRank');
+    const currLevels = document.getElementsByClassName('currLevel');
+    const targetR = document.getElementById('targetRank').value;
+    const targetL = document.getElementById('targetLevel').value;
+
+    const getVal = (r, l) => {
+        if (r === "없음") return 0;
+        // l값에 '강'이 붙어있을 경우를 대비해 숫자만 추출
+        const cleanL = String(l).replace('강', '');
+        const found = upgradeData.find(d => d.rank === r && d.level === cleanL);
+        return found ? found.total : 0;
+    };
+
+    // 모든 보유 영웅의 total값 더하기
+    let totalCurrValue = 0;
+    for (let i = 0; i < currRanks.length; i++) {
+        totalCurrValue += getVal(currRanks[i].value, currLevels[i].value);
+    }
+
+    const targetTotal = getVal(targetR, targetL);
+    const diff = targetTotal - totalCurrValue;
+
+    const resDiv = document.getElementById('calc-result');
+    if (diff <= 0) {
+        resDiv.innerHTML = "이미 목표 등급을 달성하고도 남습니다!";
+    } else {
+        resDiv.innerHTML = `목표 <b>${targetR}+${targetL}</b>까지<br>
+                            추가로 필요한 전설 영웅은 <span class="highlight">${diff}</span>명 입니다.`;
+    }
+}
+
+// 4. 페이지 로드 시 초기화 (window.onload 안에 추가)
+// 기존 window.onload가 있다면 그 안에 이 내용을 넣어주세요.
+window.onload = () => {
+    // 첫 번째 보유 영웅 드롭다운 초기화
+    const firstRank = document.querySelector('.currRank');
+    if (firstRank) updateLevelsByElement(firstRank);
+
+    // 목표 상태 드롭다운 초기화
+    updateLevels('target');
+
+    // 기본 탭 설정
+    const calcBtn = document.querySelector('.calc-tab');
+    if (calcBtn) changeTab('계산', calcBtn);
+};
+
+
+/* ==========================================
+   4. 유일 레벨업
+   ========================================== */
+
+/* ==========================================
+   유일 레벨업 (one-level.html) 최종 로직
+   ========================================== */
+
+// 1. 유일 레벨 데이터 (보내주신 텍스트 표와 100% 일치 확인)
+const oneLevelData = [
+    // 301 ~ 320 구간
+    { lv: 301, stone: 100, gold: 90000, p: 10, type: 'normal' },
+    { lv: 302, stone: 105, gold: 90810, p: 10, type: 'normal' },
+    { lv: 303, stone: 110, gold: 91627, p: 10, type: 'normal' },
+    { lv: 304, stone: 116, gold: 92451, p: 10, type: 'normal' },
+    { lv: 305, stone: 122, gold: 93283, p: 10, type: 'normal' },
+    { lv: 306, stone: 128, gold: 94122, p: 10, type: 'normal' },
+    { lv: 307, stone: 135, gold: 94969, p: 10, type: 'normal' },
+    { lv: 308, stone: 142, gold: 95823, p: 10, type: 'normal' },
+    { lv: 309, stone: 149, gold: 96685, p: 10, type: 'normal' },
+    { lv: 310, stone: 157, gold: 97555, p: 10, type: 'normal' },
+    { lv: 311, stone: 165, gold: 98432, p: 10, type: 'normal' },
+    { lv: 312, stone: 174, gold: 99317, p: 10, type: 'normal' },
+    { lv: 313, stone: 183, gold: 100210, p: 10, type: 'normal' },
+    { lv: 314, stone: 193, gold: 101111, p: 10, type: 'normal' },
+    { lv: 315, stone: 203, gold: 102020, p: 10, type: 'normal' },
+    { lv: 316, stone: 214, gold: 102938, p: 10, type: 'normal' },
+    { lv: 317, stone: 225, gold: 103864, p: 10, type: 'normal' },
+    { lv: 318, stone: 237, gold: 104798, p: 10, type: 'normal' },
+    { lv: 319, stone: 250, gold: 105741, p: 10, type: 'normal' },
+    { lv: 320, stone: 263, gold: 106692, p: 10, type: 'normal' },
+    // 321 ~ 340 구간
+    { lv: 321, stone: 175, gold: 107652, p: 7, type: 'superior' },
+    { lv: 322, stone: 181, gold: 200000, p: 7, type: 'superior' },
+    { lv: 323, stone: 193, gold: 201800, p: 7, type: 'superior' },
+    { lv: 324, stone: 211, gold: 203616, p: 7, type: 'superior' },
+    { lv: 325, stone: 235, gold: 205448, p: 7, type: 'superior' },
+    { lv: 326, stone: 265, gold: 207297, p: 7, type: 'superior' },
+    { lv: 327, stone: 301, gold: 209162, p: 7, type: 'superior' },
+    { lv: 328, stone: 343, gold: 211044, p: 7, type: 'superior' },
+    { lv: 329, stone: 391, gold: 212943, p: 7, type: 'superior' },
+    { lv: 330, stone: 445, gold: 214859, p: 7, type: 'superior' },
+    { lv: 331, stone: 505, gold: 216792, p: 7, type: 'superior' },
+    { lv: 332, stone: 571, gold: 218743, p: 7, type: 'superior' },
+    { lv: 333, stone: 643, gold: 220711, p: 7, type: 'superior' },
+    { lv: 334, stone: 721, gold: 222697, p: 7, type: 'superior' },
+    { lv: 335, stone: 805, gold: 224701, p: 7, type: 'superior' },
+    { lv: 336, stone: 895, gold: 226723, p: 7, type: 'superior' },
+    { lv: 337, stone: 991, gold: 228763, p: 7, type: 'superior' },
+    { lv: 338, stone: 1093, gold: 230821, p: 7, type: 'superior' },
+    { lv: 339, stone: 1201, gold: 232898, p: 7, type: 'superior' },
+    { lv: 340, stone: 1315, gold: 234994, p: 7, type: 'superior' }
+];
+
+// 2. 단위 변환 (90000 -> 9억)
+function formatGold(val10k) {
+    const man = val10k;
+    if (man >= 10000) {
+        const eok = Math.floor(man / 10000);
+        const remain = man % 10000;
+        return remain === 0 ? `${eok}억` : `${eok}억 ${remain.toLocaleString()}만`;
+    }
+    return `${man.toLocaleString()}만`;
+}
+
+// 3. 실시간 동기화 및 계산
+function syncOneLv(type) {
+    const currS = document.getElementById('sliderCurr');
+    const targetS = document.getElementById('sliderTarget');
+    if (parseInt(currS.value) > parseInt(targetS.value)) {
+        if (type === 'curr') targetS.value = currS.value;
+        else currS.value = targetS.value;
+    }
+    document.getElementById('displayCurr').innerText = currS.value;
+    document.getElementById('displayTarget').innerText = targetS.value;
+    calculateOneLevel();
+}
+
+function adjustOneLv(type, val) {
+    const slider = document.getElementById(type === 'curr' ? 'sliderCurr' : 'sliderTarget');
+    let newValue = parseInt(slider.value) + val;
+    if (newValue >= 300 && newValue <= 340) {
+        slider.value = newValue;
+        syncOneLv(type);
+    }
+}
+
+function handleOneDcCheck(chk) {
+    document.querySelectorAll('.dc-check').forEach(c => { if (c !== chk) c.checked = false; });
+    calculateOneLevel();
+}
+
+// 4. 메인 계산
+function calculateOneLevel() {
+    const curr = parseInt(document.getElementById('sliderCurr').value);
+    const target = parseInt(document.getElementById('sliderTarget').value);
+    const dcRate = document.querySelector('.dc-check:checked') ? parseFloat(document.querySelector('.dc-check:checked').value) : 0;
+    const resDiv = document.getElementById('one-calc-result');
+
+    if (curr >= target) {
+        resDiv.innerHTML = `<p style="color:#888;">목표 레벨을 높여주세요.</p>`;
+        return;
+    }
+
+    let goldSum = 0, normalSum = 0, superiorSum = 0, pointSum = 0;
+    let unlockAlerts = [];
+
+    for (let l = curr + 1; l <= target; l++) {
+        if (l === 311) unlockAlerts.push("🔓 310 해금: 태초 3만 + 팔라딘 사원 퀘스트");
+        if (l === 321) unlockAlerts.push("🔓 320 해금: 태초 3.5만");
+        if (l === 331) unlockAlerts.push("🔓 330 해금: 태초 4만");
+
+        const data = oneLevelData.find(d => d.lv === l);
+        if (data) {
+            goldSum += data.gold;
+            pointSum += data.p;
+            const cost = Math.ceil(data.stone * (1 - dcRate));
+            if (data.type === 'normal') normalSum += cost;
+            else superiorSum += cost;
+        }
+    }
+
+    resDiv.innerHTML = `
+        <div style="text-align: left; line-height: 1.6;">
+            <p><b>총 골드:</b> <span style="color:#e67e22; font-weight:bold;">${formatGold(goldSum)}</span></p>
+            <p><b>금빛 마정석:</b> <span style="color:#d32f2f; font-weight:bold;">${normalSum.toLocaleString()}</span>개</p>
+            <p><b>상급 금빛마정석:</b> <span style="color:#d32f2f; font-weight:bold;">${superiorSum.toLocaleString()}</span>개</p>
+            <p><b>포인트:</b> <span style="color:#2980b9; font-weight:bold;">${pointSum.toLocaleString()}</span> P</p>
+            ${unlockAlerts.length > 0 ? `<div style="margin-top:10px; font-size:0.85rem; color:#d32f2f; background:#f9f9f9; padding:8px; border-radius:5px;">${unlockAlerts.join('<br>')}</div>` : ''}
+        </div>
+    `;
+}
+
+/* 유일 레벨 데이터 및 로직 생략 (이전과 동일) */
+
+function renderOneTable(startLv) {
+    const head = document.getElementById('one-table-head');
+    const body = document.getElementById('one-table-body');
+    const isNormal = startLv === '300';
+
+    // 헤더 정렬 (포인트라고 명확히 기재)
+    head.innerHTML = `
+        <th>레벨</th>
+        <th>${isNormal ? '금빛마정석' : '상급 금빛마정석'}</th>
+        <th>골드</th>
+        <th>포인트</th>
+    `;
+
+    const filtered = oneLevelData.filter(d => isNormal ? d.lv <= 320 : d.lv > 320);
+
+    body.innerHTML = filtered.map(d => `
+        <tr>
+            <td>${d.lv}</td>
+            <td>${d.stone.toLocaleString()}</td>
+            <td>${formatGold(d.gold)}</td>
+            <td>${d.p}P</td>
+        </tr>
+    `).join('');
+}
+
+// 탭 전환 시에도 .one-tab 클래스 유지 확인
+function changeOneTab(type, btn) {
+    // 다른 페이지 탭은 건드리지 않고 .one-tab-btn만 찾아 지웁니다.
+    document.querySelectorAll('.one-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const calcView = document.getElementById('one-calc-view');
+    const tableView = document.getElementById('one-table-view');
+
+    if (type === '계산') {
+        calcView.style.display = 'block';
+        tableView.style.display = 'none';
+    } else {
+        calcView.style.display = 'block'; // wrapper 레이아웃 유지를 위해 block 권장
+        calcView.style.display = 'none';
+        tableView.style.display = 'block';
+        renderOneTable(type);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => { if (document.getElementById('sliderCurr')) calculateOneLevel(); });
+
+/* ==========================================
+   5.
+   ========================================== */

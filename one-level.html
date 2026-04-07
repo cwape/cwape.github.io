@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LacyBot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="nav-section left">
+                <button class="hamburger-btn" onclick="toggleNavMenu()">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <div id="navDropdown" class="nav-content">
+                    <a href="statcalc.html">레벨 포인트</a>
+                    <a href="hero-legend.html">영웅 강화</a>
+                    <a href="hero-skill.html">영웅 스킬</a>
+                    <a href="one-level.html">유일 레벨</a>
+
+                    <div class="menu-dark-mode">
+                        <span class="theme-text">Dark Mode</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-section center">
+                <a href="index.html" class="logo-badge">Racy Bot</a>
+            </div>
+
+            <div class="nav-section right"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tab-container">
+            <button class="one-tab-btn active" onclick="changeOneTab('계산', this)">계산기</button>
+            <button class="one-tab-btn" onclick="changeOneTab('300', this)">300-320</button>
+            <button class="one-tab-btn" onclick="changeOneTab('321', this)">321-340</button>
+        </div>
+
+        <div id="one-table-view" class="view-section" style="display: none;">
+            <div class="one-table-wrapper">
+                <table class="one-level-table">
+                    <thead>
+                        <tr id="one-table-head"></tr>
+                    </thead>
+                    <tbody id="one-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="one-calc-view" class="view-section">
+            <div class="calc-card">
+                <h3 style="color: #4CAF50; margin-bottom: 20px;">유일 레벨업 계산기</h3>
+
+                <div class="potion-row">
+                    <label class="potion-title">성장의 비약</label>
+                    <div class="potion-options">
+                        <label class="potion-item">
+                            <input type="checkbox" class="dc-check" value="0.2" onclick="handleOneDcCheck(this)">
+                            <span>20%</span>
+                        </label>
+                        <label class="potion-item">
+                            <input type="checkbox" class="dc-check" value="0.5" onclick="handleOneDcCheck(this)">
+                            <span>50%</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="select-group">
+                    <label>현재 레벨: <span id="displayCurr" style="color:#4CAF50; font-weight:bold;">300</span></label>
+                    <div class="select-row" style="align-items: center;">
+                        <button class="adjust-btn" onclick="adjustOneLv('curr', -1)">-</button>
+                        <input type="range" id="sliderCurr" min="300" max="340" value="300" style="flex:1;"
+                            oninput="syncOneLv('curr')">
+                        <button class="adjust-btn" onclick="adjustOneLv('curr', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="select-group">
+                    <label>목표 레벨: <span id="displayTarget" style="color:#4CAF50; font-weight:bold;">310</span></label>
+                    <div class="select-row" style="align-items: center;">
+                        <button class="adjust-btn" onclick="adjustOneLv('target', -1)">-</button>
+                        <input type="range" id="sliderTarget" min="300" max="340" value="310" style="flex:1;"
+                            oninput="syncOneLv('target')">
+                        <button class="adjust-btn" onclick="adjustOneLv('target', 1)">+</button>
+                    </div>
+                </div>
+
+                <div id="one-calc-result" class="result-box" style="margin-top: 25px; border: 2px solid #4CAF50;">
+                </div>
+            </div>
+        </div>
+
+        <div id="one-table-view" class="view-section" style="display: none;">
+            <div class="table-container">
+                <table class="upgrade-table">
+                    <thead>
+                        <tr id="one-table-head"></tr>
+                    </thead>
+                    <tbody id="one-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

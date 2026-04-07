@@ -22,6 +22,7 @@
                     <a href="statcalc.html">레벨 포인트</a>
                     <a href="hero-legend.html">영웅 강화</a>
                     <a href="hero-skill.html">영웅 스킬</a>
+                    <a href="one-level.html">유일 레벨</a>
 
                     <div class="menu-dark-mode">
                         <span class="theme-text">Dark Mode</span>
@@ -109,9 +110,9 @@
                 <div class="input-item">
                     <label>공격력</label>
                     <div class="control-wrapper">
-                        <button type="button" class="btn-minus" onclick="stepUpdate('currentAttack', -10)">−</button>
+                        <button type="button" class="btn-minus" onclick="stepUpdate('currentAttack', -1)">−</button>
                         <input type="number" id="currentAttack" value="0" min="0" max="30000000">
-                        <button type="button" class="btn-plus" onclick="stepUpdate('currentAttack', 10)">+</button>
+                        <button type="button" class="btn-plus" onclick="stepUpdate('currentAttack', 1)">+</button>
                     </div>
                     <input type="range" class="range-slider" min="0" max="30000000" step="10" value="0"
                         oninput="document.getElementById('currentAttack').value = this.value; calculateStats();">
@@ -203,7 +204,7 @@
                     <p>공격력: <span id="finalAtkStat">0</span></p>
                     <p>체력: <span id="finalHpStat">0</span></p>
                     <p>치명피해: <span id="finalCritStat">0</span></p>
-                    <p>데미지 + <span id="finalDamageIncreaseRate" style="font-weight: bold; color: #e91e63;">0%</span></p>
+                    <p>데미지 <span id="finalDamageIncreaseRate">0.0%</span></p>
                 </div>
             </div>
         </section>

@@ -22,6 +22,7 @@
                     <a href="statcalc.html">레벨 포인트</a>
                     <a href="hero-legend.html">영웅 강화</a>
                     <a href="hero-skill.html">영웅 스킬</a>
+                    <a href="one-level.html">유일 레벨</a>
 
                     <div class="menu-dark-mode">
                         <span class="theme-text">Dark Mode</span>
@@ -63,22 +64,28 @@
                 </table>
             </div>
         </div>
-        <div id="calc-view" class="view-section" style="display: none;">
+        <div id="calc-view" class="view-section">
             <div class="calc-card">
-                <h3>전설 영웅 필요수 계산</h3>
+                <h3>🚀 전설 영웅 필요수 계산</h3>
 
-                <div class="select-group">
-                    <label>현재 상태</label>
-                    <div class="select-row">
-                        <select id="currRank" onchange="updateLevels('curr')">
-                            <option value="없음">없음</option>
-                            <option value="전설">전설</option>
-                            <option value="신화">신화</option>
-                            <option value="유일">유일</option>
-                        </select>
-                        <select id="currLevel"></select>
+                <div id="curr-hero-list">
+                    <div class="select-group curr-hero-item">
+                        <div class="hero-header">
+                            <label>보유 영웅 1</label>
+                        </div>
+                        <div class="select-row">
+                            <select class="currRank" onchange="updateLevelsByElement(this)">
+                                <option value="없음">없음</option>
+                                <option value="전설">전설</option>
+                                <option value="신화">신화</option>
+                                <option value="유일">유일</option>
+                            </select>
+                            <select class="currLevel"></select>
+                        </div>
                     </div>
                 </div>
+
+                <button type="button" class="add-hero-btn" onclick="addHeroInput()">+ 영웅 추가</button>
 
                 <div class="select-group">
                     <label>목표 상태</label>
@@ -94,9 +101,7 @@
 
                 <button class="do-calc-btn" onclick="calculateNeed()">계산</button>
 
-                <div id="calc-result" class="result-box">
-
-                </div>
+                <div id="calc-result" class="result-box" style="text-align: center;"> </div>
             </div>
         </div>
     </div>
