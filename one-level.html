@@ -43,7 +43,7 @@
     </header>
 
     <div class="container">
-        <div class="tab-container">
+        <div class="tab-container one-page-tabs">
             <button class="one-tab-btn active" onclick="changeOneTab('계산', this)">계산기</button>
             <button class="one-tab-btn" onclick="changeOneTab('300', this)">300-320</button>
             <button class="one-tab-btn" onclick="changeOneTab('321', this)">321-340</button>
@@ -78,23 +78,25 @@
                     </div>
                 </div>
 
-                <div class="select-group">
-                    <label>현재 레벨: <span id="displayCurr" style="color:#4CAF50; font-weight:bold;">300</span></label>
-                    <div class="select-row" style="align-items: center;">
-                        <button class="adjust-btn" onclick="adjustOneLv('curr', -1)">-</button>
-                        <input type="range" id="sliderCurr" min="300" max="340" value="300" style="flex:1;"
-                            oninput="syncOneLv('curr')">
-                        <button class="adjust-btn" onclick="adjustOneLv('curr', 1)">+</button>
+                <div class="level-container">
+                    <div class="level-box">
+                        <label class="level-label">현재 레벨: <span id="displayCurr">300</span></label>
+                        <div class="slider-wrapper">
+                            <button class="adjust-btn" onclick="adjustOneLv('curr', -1)">-</button>
+                            <input type="range" id="sliderCurr" min="300" max="340" value="300"
+                                oninput="syncOneLv('curr')">
+                            <button class="adjust-btn" onclick="adjustOneLv('curr', 1)">+</button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="select-group">
-                    <label>목표 레벨: <span id="displayTarget" style="color:#4CAF50; font-weight:bold;">310</span></label>
-                    <div class="select-row" style="align-items: center;">
-                        <button class="adjust-btn" onclick="adjustOneLv('target', -1)">-</button>
-                        <input type="range" id="sliderTarget" min="300" max="340" value="310" style="flex:1;"
-                            oninput="syncOneLv('target')">
-                        <button class="adjust-btn" onclick="adjustOneLv('target', 1)">+</button>
+                    <div class="level-box">
+                        <label class="level-label">목표 레벨: <span id="displayTarget">300</span></label>
+                        <div class="slider-wrapper">
+                            <button class="adjust-btn" onclick="adjustOneLv('target', -1)">-</button>
+                            <input type="range" id="sliderTarget" min="300" max="340" value="300"
+                                oninput="syncOneLv('target')">
+                            <button class="adjust-btn" onclick="adjustOneLv('target', 1)">+</button>
+                        </div>
                     </div>
                 </div>
 

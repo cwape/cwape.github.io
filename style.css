@@ -563,10 +563,13 @@ body.dark-mode .input-item input {
 /* 탭 스타일 */
 .tab-container {
     display: flex;
-    justify-content: center;
-    gap: 4px; /* 버튼 사이 간격을 10px에서 4px로 줄임 */
     margin-bottom: 20px;
-    width: 100%;
+    /* 여기서 border-bottom 코드가 있다면 삭제하거나 기본값으로 둡니다 */
+}
+
+/* [핵심] 유일 레벨 페이지 전용 빨간 줄 설정 */
+.tab-container.one-page-tabs {
+    border-bottom: 2px solid #d32f2f; /* 이 줄이 유일 레벨 페이지만 적용됨 */
 }
 
 /* 탭 버튼 스타일 */
@@ -652,14 +655,6 @@ body.dark-mode .input-item input {
 .one-tab-btn.active {
     background: #d32f2f !important;
     color: white !important;
-}
-
-/* 탭 컨테이너 하단에 라인을 그어 탭과 본문을 연결 */
-.tab-container {
-    display: flex;
-    border-bottom: 2px solid #d32f2f;
-    padding-bottom: 0;
-    margin-bottom: 20px;
 }
 
 /* 다크모드에서도 둥근 테두리 색상 조절 */
@@ -807,6 +802,67 @@ body.dark-mode .one-level-table td {
     vertical-align: middle;
 }
 
+/* 전체 컨테이너 배경 및 간격 */
+.level-container {
+    display: flex;
+    flex-direction: column; /* 기본(모바일): 세로 정렬 */
+    gap: 20px;
+    background: rgba(0,0,0,0.02);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+/* 개별 레벨 박스 */
+.level-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 라벨 스타일 */
+.level-label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+}
+.level-label span { color: #4CAF50; }
+
+/* 슬라이더와 +/- 버튼 정렬 */
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.slider-wrapper input[type="range"] {
+    flex: 1;
+}
+
+/* ==========================================
+   💻 PC 버전 (600px 이상): 가로 병렬 배치
+   ========================================== */
+@media (min-width: 601px) {
+    .level-container {
+        flex-direction: row; /* 가로로 배치 */
+        justify-content: space-between;
+    }
+
+    .level-box {
+        flex: 1; /* 반씩 나눠 가짐 */
+        padding: 0 10px;
+    }
+
+    /* 중간에 구분선 효과 (선택사항) */
+    .level-box:first-child {
+        border-right: 1px solid rgba(0,0,0,0.05);
+    }
+}
+
+/* 다크모드 대응 */
+body.dark-mode .level-container { background: rgba(255,255,255,0.05); }
+body.dark-mode .level-label { color: #eee; }
+body.dark-mode .level-box:first-child { border-right-color: rgba(255,255,255,0.1); }
+
 /* ==========================================
    🌙 다크 모드 대응 (body.dark-mode 기준)
    ========================================== */
@@ -867,6 +923,51 @@ body.dark-mode .potion-item:hover {
 /* 두 번째 열(재료) 중앙 정렬 확인 */
 .upgrade-table td:nth-child(2) {
     text-align: center; /* 왼쪽 정렬 대신 중앙 정렬로 변경 */
+}
+
+/* 툴팁 전체 컨테이너 */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    color: #d32f2f; /* 아이콘 색상 (빨간색 계열) */
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* 툴팁 박스 (기본적으로 숨김) */
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 130px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 10;
+    bottom: 115%; /* 위로 나타나게 설정 */
+    margin-left: -100px; /* 중앙 정렬 */
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    font-weight: normal;
+    line-height: 1.4;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* 마우스 오버 시 표시 */
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 다크모드에서는 배경색을 살짝 조정 */
+body.dark-mode .tooltip .tooltip-text {
+    background-color: #555;
+}
+body.dark-mode .tooltip .tooltip-text::after {
+    border-color: #555 transparent transparent transparent;
 }
 
 /* 비고란 글자가 너무 길어질 경우 대비 */

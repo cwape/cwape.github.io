@@ -328,7 +328,7 @@ const upgradeData = [
     { rank: '신화', level: '9', material: '전설+9 × 1', note: '궁극스킬 활성화', total: 25 },
     { rank: '신화', level: '10', material: '전설+9 + 전설+0×2', note: '', total: 31 },
     { rank: '신화', level: '11', material: '신화+0 × 1', note: '', total: 41 },
-    { rank: '신화', level: '12', material: '신화+9 × 1', note: '기본/특수 스킬 강화', total: 66 },
+    { rank: '신화', level: '12', material: '신화+9 × 1', note: '기본or특수 스킬 강화', total: 66 },
     // 유일
     { rank: '유일', level: '0', material: '신화+12 × 2', note: '유일 소환', total: 132 },
     { rank: '유일', level: '1', material: '전설+9 × 1', note: '', total: 136 },
@@ -336,7 +336,7 @@ const upgradeData = [
     { rank: '유일', level: '3', material: '전설+9×1 + 전설+0×2', note: '', total: 146 },
     { rank: '유일', level: '4', material: '전설+9 × 2', note: '', total: 154 },
     { rank: '유일', level: '5', material: '전설+9 × 2', note: '', total: 162 },
-    { rank: '유일', level: '6', material: '신화+0 × 2', note: '기본/특수 스킬 강화', total: 182 },
+    { rank: '유일', level: '6', material: '신화+0 × 2', note: '기본/특수 스킬 강화<br><span class="tooltip">!조건<span class="tooltip-text">팔라딘의 사원(5장)<br> 퀘스트 완료</span></span>', total: 182},
     { rank: '유일', level: '7', material: '신화+0 × 1', note: '', total: 192 },
     { rank: '유일', level: '8', material: '신화+0×2 + 전설+9×2', note: '', total: 220 },
     { rank: '유일', level: '9', material: '신화+11 × 1', note: '궁극 스킬 활성화', total: 261 },
@@ -507,28 +507,50 @@ function calculateNeed() {
 
     const getVal = (r, l) => {
         if (r === "없음") return 0;
-        // l값에 '강'이 붙어있을 경우를 대비해 숫자만 추출
         const cleanL = String(l).replace('강', '');
         const found = upgradeData.find(d => d.rank === r && d.level === cleanL);
         return found ? found.total : 0;
     };
 
-    // 모든 보유 영웅의 total값 더하기
+    // 1. 모든 보유 영웅의 가치 합산 (현재 총합)
     let totalCurrValue = 0;
     for (let i = 0; i < currRanks.length; i++) {
         totalCurrValue += getVal(currRanks[i].value, currLevels[i].value);
     }
 
+    // 2. 목표 상태의 가치 계산 (목표 총합)
     const targetTotal = getVal(targetR, targetL);
     const diff = targetTotal - totalCurrValue;
 
     const resDiv = document.getElementById('calc-result');
+
+    // 3. 결과 출력 레이아웃 구성
+    let resultHTML = "";
+
     if (diff <= 0) {
-        resDiv.innerHTML = "이미 목표 등급을 달성하고도 남습니다!";
+        resultHTML = `<p style="color:#4CAF50; font-weight:bold;">이미 목표치를 달성했습니다!</p>`;
     } else {
-        resDiv.innerHTML = `목표 <b>${targetR}+${targetL}</b>까지<br>
-                            추가로 필요한 전설 영웅은 <span class="highlight">${diff}</span>명 입니다.`;
+        resultHTML = `목표 <b>${targetR}+${targetL}</b>까지<br>
+                      추가로 필요한 전설 영웅은 <span class="highlight">${diff}</span>명 입니다.`;
     }
+
+    // 4. 각각의 총합(가치) 표시 추가
+    resDiv.innerHTML = `
+        <div class="result-summary">
+            ${resultHTML}
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+            <div style="display: flex; gap: 10px; font-size: 0.85rem; text-align: center;">
+                <div style="flex:1; background:rgba(0,0,0,0.03); padding:10px; border-radius:8px;">
+                    <p style="margin:0; color:#666;">현재 총 가치</p>
+                    <b style="font-size:1.1rem;">${totalCurrValue}</b>
+                </div>
+                <div style="flex:1; background:rgba(0,0,0,0.03); padding:10px; border-radius:8px;">
+                    <p style="margin:0; color:#666;">목표 총 가치</p>
+                    <b style="font-size:1.1rem;">${targetTotal}</b>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 // 4. 페이지 로드 시 초기화 (window.onload 안에 추가)
