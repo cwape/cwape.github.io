@@ -1,17 +1,31 @@
 /* 1. 기본 설정 (Global) */
+:root {
+    /* 라이트 모드 변수 정의 */
+    --card: #ffffff;
+    --text: #1a1a1a;  /* 흐릿한 #333보다 더 진한 검정 */
+    --border: #dddddd;
+    --primary: #4CAF50;
+    --secondary: #3a86ff;
+    --radius: 12px;
+}
+
+body.dark-mode {
+    /* 다크 모드 변수 정의 */
+    --card: #2a2a2a;
+    --text: #ffffff;
+    --border: #444444;
+    
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
 body {
-    background-color: #ffffff;
-    color: #333333;
+    background-color: var(--card); /* 이제 변수를 사용합니다 */
+    color: var(--text);
     font-family: sans-serif;
     padding: 10px;
     margin: 0;
     transition: background-color 0.4s, color 0.4s;
-}
-
-/* 다크모드 기본 배경/글자색 */
-body.dark-mode {
-    background-color: #1e1e1e;
-    color: #ffffff;
 }
 
 /* 2. 레이아웃 (Layout) */
@@ -94,6 +108,133 @@ body.dark-mode {
     text-decoration: none;
     white-space: nowrap; /* 글자 잘림/줄바꿈 방지 필수! */
     box-shadow: 0 4px 10px rgba(33, 150, 243, 0.2);
+}
+
+/* 하단 안내 섹션 */
+.info-section {
+    margin: 40px auto;      /* 위아래 40px 여백, 중앙 정렬 */
+    max-width: 600px;       /* PC에선 메뉴 2개 정도 너비 */
+    width: auto;            /* [수정] 100% 대신 auto를 써서 부모 패딩 안으로 쏙 들어가게 함 */
+    text-align: center;
+    /* 모바일에서 다른 메뉴 타일들과 좌우 간격을 맞추기 위해 */
+    box-sizing: border-box; 
+}
+
+.info-card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius); /* 메뉴와 동일한 둥글기 */
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    
+    /* [추가] 모바일에서 박스 자체가 너무 찰싹 붙지 않게 */
+    margin: 0 5px; 
+}
+
+/* 다크모드 대응 */
+body.dark-mode .info-card {
+    background-color: #2c2c2c;
+    border-color: #444;
+}
+
+/* 문의처 영역 정렬 */
+.contact-area {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 줄 간격 */
+    align-items: center; /* 가로 중앙 정렬 */
+}
+
+.contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+/* 버튼 공통 스타일 */
+.link-btn {
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: transform 0.2s, filter 0.2s;
+    display: inline-block;
+}
+
+.link-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+}
+
+/* 카톡 버튼 (노란색) */
+.link-btn.kakao {
+    background-color: #FEE500;
+    color: #191919;
+}
+
+/* 네이버 카페 버튼 (초록색) */
+.link-btn.cafe {
+    background-color: #03C75A;
+    color: #fff;
+}
+
+/* 다크모드 대응 */
+body.dark-mode .info-card {
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.contact-area {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* 버튼 사이 간격 */
+    width: 100%;
+    max-width: 400px; /* 너무 퍼지지 않게 제한 */
+}
+
+.link-btn {
+    flex: 1; /* 버튼 너비를 동일하게 배분 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.brand-name {
+    color: #e74c3c; /* 포인트 레드 색상 */
+    font-weight: bold;
+}
+
+/* 카카오톡 버튼 색상 */
+.kakao {
+    background-color: #FEE500;
+    color: #3C1E1E;
+}
+
+/* 네이버 카페 버튼 색상 */
+.cafe {
+    background-color: #03C75A;
+    color: #fff;
+}
+
+.link-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px); /* 살짝 떠오르는 효과 */
 }
 
 /* 햄버거 버튼 */
@@ -451,6 +592,141 @@ body.dark-mode .btn-plus:hover {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* 모달 배경 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+/* 모달 컨텐츠 박스 */
+.modal-content {
+    background-color: var(--card); /* 상단에서 정의한 변수 사용 */
+    color: var(--text);           /* 상단에서 정의한 변수 사용 */
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: var(--radius);
+    width: 85%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--secondary); /* 확성기 테마 색상 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 닫기 버튼 */
+.close-btn {
+    position: absolute;
+    right: 20px; top: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #888;
+}
+.close-btn:hover { color: var(--primary); }
+
+/* 모달 내부 문단 가독성 */
+.modal-body p {
+    color: var(--text);
+    opacity: 1; /* 흐릿함 방지 */
+    line-height: 1.7;
+    margin-bottom: 12px;
+    font-weight: 500; /* 글자를 살짝 두껍게 */
+}
+
+.main-title {
+    display: flex;
+    align-items: center;    /* 아이콘과 텍스트 높이 맞춤 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    gap: 10px;
+    width: 100%;
+}
+
+.notice-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* 배경 및 테두리 제거 */
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    
+    /* [수정 포인트] 위로 4px 이동 (음수값이 위로 올라가는 것) */
+    transform: translateY(-0px);
+
+    /* 크기 및 위치 조정 */
+    width: auto;   /* 고정 크기 해제 */
+    height: auto;
+    font-size: 28px; /* 아이콘 크기를 시원하게 키움 */
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 8px;
+    
+    /* 약간의 애니메이션만 유지 */
+    transition: transform 0.2s ease;
+}
+
+.notice-badge:hover {
+    transform: scale(1.2); /* 마우스 올리면 살짝 커지며 회전 */
+}
+
+.notice-badge:active {
+    transform: scale(0.9); /* 클릭 시 쏙 들어가는 느낌 */
+}
+
+.modal-content h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-content h3::before {
+    content: '📋'; /* 제목 앞에 추가 */
+}
+
+/* 모달 컨텐츠 박스 */
+.modal-content {
+    /* 1. 배경색: 변수가 없으면 흰색을 기본으로 하되, 다크모드 클래스에 따라 변하게 함 */
+    background-color: var(--card) !important; 
+    
+    /* 2. 글자색: 배경에 맞춰 자동으로 변하도록 설정 */
+    color: var(--text) !important; 
+    
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: var(--radius);
+    width: 85%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4); /* 그림자도 좀 더 깊게 */
+    border: 1px solid var(--border);
+    
+    /* 혹시 모를 대비: 변수가 아예 안 먹을 때를 위한 기본 배경 (다크모드 우선) */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 모달 제목 */
+.modal-title {
+    color: var(--primary) !important;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* 구분선도 다크모드 변수 사용 */
+.modal-content hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 15px 0;
 }
 
 /* 스탯 상승 (+) */
@@ -1087,3 +1363,10 @@ body.dark-mode .select-row select { background: #333; color: #fff; border-color:
 body.dark-mode .result-box { background: #383838; }
 
 .highlight { color: #D32F2F; font-weight: bold; font-size: 1.5rem; }
+
+/* 다크모드일 때 모달 강제 색상 지정 */
+body.dark-mode .modal-content {
+    background-color: #2a2a2a !important; /* 다크모드 카드 배경색 */
+    color: #f0f0f0 !important;
+    border-color: #444 !important;
+}

@@ -79,6 +79,28 @@ function toggleCalcMode() {
     calculateStats();
 }
 
+// 모달 열기 함수
+function openModal() {
+    const modal = document.getElementById('guideModal');
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // 뒷배경 스크롤 방지
+}
+
+// 모달 닫기 함수
+function closeModal() {
+    const modal = document.getElementById('guideModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // 스크롤 재개
+}
+
+// 모달 바깥 영역 클릭 시 닫기 기능
+window.onclick = function(event) {
+    const modal = document.getElementById('guideModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
 function calculateStats() {
     console.log(isHpBasedMode);
     // [1. 입력값 가져오기]
