@@ -94,7 +94,7 @@ function closeModal() {
 }
 
 // 모달 바깥 영역 클릭 시 닫기 기능
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('guideModal');
     if (event.target == modal) {
         closeModal();
@@ -358,7 +358,7 @@ const upgradeData = [
     { rank: '유일', level: '3', material: '전설+9×1 + 전설+0×2', note: '', total: 146 },
     { rank: '유일', level: '4', material: '전설+9 × 2', note: '', total: 154 },
     { rank: '유일', level: '5', material: '전설+9 × 2', note: '', total: 162 },
-    { rank: '유일', level: '6', material: '신화+0 × 2', note: '기본/특수 스킬 강화<br><span class="tooltip">!조건<span class="tooltip-text">팔라딘의 사원(5장)<br> 퀘스트 완료</span></span>', total: 182},
+    { rank: '유일', level: '6', material: '신화+0 × 2', note: '기본/특수 스킬 강화<br><span class="tooltip">!조건<span class="tooltip-text">팔라딘의 사원(5장)<br> 퀘스트 완료</span></span>', total: 182 },
     { rank: '유일', level: '7', material: '신화+0 × 1', note: '', total: 192 },
     { rank: '유일', level: '8', material: '신화+0×2 + 전설+9×2', note: '', total: 220 },
     { rank: '유일', level: '9', material: '신화+11 × 1', note: '궁극 스킬 활성화', total: 261 },
@@ -553,7 +553,7 @@ function calculateNeed() {
         resultHTML = `<p style="color:#4CAF50; font-weight:bold;">이미 목표치를 달성했습니다!</p>`;
     } else {
         resultHTML = `목표 <b>${targetR}+${targetL}</b>까지<br>
-                      추가로 필요한 전설 영웅은 <span class="highlight">${diff}</span>명 입니다.`;
+                      추가로 필요한 전설 영웅은 <span class="highlight">${diff}</span>개 입니다.`;
     }
 
     // 4. 각각의 총합(가치) 표시 추가
@@ -731,7 +731,7 @@ function renderOneTable(startLv) {
     const body = document.getElementById('one-table-body');
     const isNormal = startLv === '300';
 
-    // 헤더 정렬 (포인트라고 명확히 기재)
+    // 1. 헤더 정렬 (이 부분이 추가되어야 항목 표시가 나타납니다)
     head.innerHTML = `
         <th>레벨</th>
         <th>${isNormal ? '금빛마정석' : '상급 금빛마정석'}</th>
@@ -739,8 +739,18 @@ function renderOneTable(startLv) {
         <th>포인트</th>
     `;
 
+    // 2. 데이터 필터링
     const filtered = oneLevelData.filter(d => isNormal ? d.lv <= 320 : d.lv > 320);
 
+    // 3. 합계 계산
+    let totalStone = 0, totalGold = 0, totalPoint = 0;
+    filtered.forEach(d => {
+        totalStone += d.stone;
+        totalGold += d.gold;
+        totalPoint += d.p;
+    });
+
+    // 4. 테이블 본문 렌더링[cite: 2]
     body.innerHTML = filtered.map(d => `
         <tr>
             <td>${d.lv}</td>
@@ -749,6 +759,16 @@ function renderOneTable(startLv) {
             <td>${d.p}P</td>
         </tr>
     `).join('');
+
+    // 5. 합계 행 추가 (강조 스타일 적용)[cite: 2]
+    body.innerHTML += `
+        <tr style="background: rgba(0,0,0,0.05); font-weight: bold; border-top: 2px solid #d32f2f;">
+            <td>합계</td>
+            <td>${totalStone.toLocaleString()}</td>
+            <td>${formatGold(totalGold)}</td>
+            <td>${totalPoint}P</td>
+        </tr>
+    `;
 }
 
 // 탭 전환 시에도 .one-tab 클래스 유지 확인
@@ -774,5 +794,58 @@ function changeOneTab(type, btn) {
 document.addEventListener('DOMContentLoaded', () => { if (document.getElementById('sliderCurr')) calculateOneLevel(); });
 
 /* ==========================================
-   5.
+   5. 영웅 스킬
    ========================================== */
+
+async function loadHeroSkills() {
+    const response = await fetch('./hero-skills.json');
+    const heroes = await response.json();
+    const selector = document.getElementById('hero-selector');
+    const detail = document.getElementById('hero-detail');
+
+    heroes.forEach(hero => {
+        // 초상화 생성
+        const thumb = document.createElement('div');
+        thumb.className = 'hero-thumb';
+        thumb.innerHTML = `<img src="${hero.hero_image}" alt="${hero.hero}">`;
+
+        thumb.onclick = () => {
+            // 모든 썸네일 활성 해제
+            document.querySelectorAll('.hero-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+
+            showDetail(hero);
+        };
+        selector.appendChild(thumb);
+    });
+
+    function showDetail(hero) {
+        const detailContent = document.getElementById('detail-content');
+
+        detailContent.innerHTML = `
+            <div class="detail-header">
+                <img src="${hero.hero_image}">
+            </div>
+            <div class="skill-list">
+                ${hero.skills.map(skill => `
+                    <div class="skill-item">
+                        <div class="skill-title-row">
+                            <span class="skill-tag category-${skill.category}">${skill.category}</span>
+                            <span class="skill-name">${skill.name}</span>
+                            <span class="upgrade-badge">+${skill.upgrade}강</span>
+                        </div>
+                        <div class="skill-desc">
+                            ${skill.description || ''}
+                        </div>
+                        <div class="skill-meta">
+                            ${skill.range ? `<span class="meta-item">사거리 : ${skill.range}</span>` : ''} 
+                            ${skill.cooldown ? `<span class="meta-item">쿨타임 : ${skill.cooldown}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+}
+
+loadHeroSkills();
