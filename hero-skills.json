@@ -3,6 +3,7 @@
     "hero": "카인",
     "hero_id": "kyle",
     "hero_image": "images/heroes/kyle.png",
+    "joining_date": "2024-07-31",
     "skills": [
       {
         "upgrade": 0,
@@ -66,6 +67,7 @@
     "hero": "그레이스",
     "hero_id": "grace",
     "hero_image": "images/heroes/grace.png",
+    "joining_date": "2024-09-12",
     "skills": [
       {
         "upgrade": 0,
@@ -129,6 +131,7 @@
     "hero": "리제",
     "hero_id": "lize",
     "hero_image": "images/heroes/lize.png",
+    "joining_date": "2025-08-22",
     "skills": [
       {
         "upgrade": 0,
@@ -192,6 +195,7 @@
     "hero": "어둠의 사라",
     "hero_id": "saradark",
     "hero_image": "images/heroes/saradark.png",
+    "joining_date": "2025-08-22",
     "skills": [
       {
         "upgrade": 0,
@@ -263,6 +267,7 @@
     "hero": "사라",
     "hero_id": "sara",
     "hero_image": "images/heroes/sara.png",
+    "joining_date": "2021-01-29",
     "skills": [
       {
         "upgrade": 0,
@@ -302,6 +307,7 @@
     "hero": "크리스",
     "hero_id": "kris",
     "hero_image": "images/heroes/kris.png",
+    "joining_date": "2021-08-23",
     "skills": [
       {
         "upgrade": 0,
@@ -341,6 +347,7 @@
     "hero": "아젤리아",
     "hero_id": "azalea",
     "hero_image": "images/heroes/azalea.png",
+    "joining_date": "2021-12-23",
     "skills": [
       {
         "upgrade": 0,
@@ -380,6 +387,7 @@
     "hero": "레나",
     "hero_id": "renna",
     "hero_image": "images/heroes/renna.png",
+    "joining_date": "2022-08-16",
     "skills": [
       {
         "upgrade": 0,
@@ -419,6 +427,7 @@
     "hero": "드레드",
     "hero_id": "dread",
     "hero_image": "images/heroes/dread.png",
+    "joining_date": "2022-12-20",
     "skills": [
       {
         "upgrade": 0,
@@ -458,6 +467,7 @@
     "hero": "신디",
     "hero_id": "sindy",
     "hero_image": "images/heroes/sindy.png",
+    "joining_date": "2023-06-20",
     "skills": [
       {
         "upgrade": 0,
@@ -497,6 +507,7 @@
     "hero": "맥스",
     "hero_id": "max",
     "hero_image": "images/heroes/max.png",
+    "joining_date": "2023-10-30",
     "skills": [
       {
         "upgrade": 0,
@@ -536,6 +547,7 @@
     "hero": "실비아",
     "hero_id": "sylvia",
     "hero_image": "images/heroes/sylvia.png",
+    "joining_date": "2024-02-08",
     "skills": [
       {
         "upgrade": 0,
@@ -575,6 +587,7 @@
     "hero": "제이크",
     "hero_id": "jake",
     "hero_image": "images/heroes/jake.png",
+    "joining_date": "2023-06-20",
     "skills": [
       {
         "upgrade": 0,

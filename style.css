@@ -1696,3 +1696,30 @@ body.dark-mode .modal-content {
     margin-right: 15px;
     color: #ccc;
 }
+
+/* 숫자 및 % 강조 스타일 */
+.stat-highlight {
+    color: #ffffff;      /* 흰색으로 강조 */
+    font-weight: bold;   /* 굵게 해서 더 눈에 띄게 */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 살짝 빛나는 효과 (선택사항) */
+}
+
+/* 라이트 모드에서는 배경이 밝으므로, 흰색 대신 조금 더 진한 색이나 배경색을 주어 대비를 높일 수 있습니다 */
+:root .stat-highlight {
+    color: #d32f2f;      /* 예: 라이트 모드에서는 포인트 컬러인 빨간색 사용 */
+    background: rgba(0, 0, 0, 0.05); /* 연한 배경을 깔아 가독성 확보 */
+    padding: 0 2px;
+    border-radius: 3px;
+}
+
+body.dark-mode .stat-highlight {
+    color: #ffffff;      /* 다크 모드에서는 확실한 흰색 */
+}
+
+.stat-highlight {
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 0.5px; /* 숫자와 소수점 사이를 아주 미세하게 띄워 가독성 상승 */
+    /* 다크모드에서 더 빛나게 하고 싶다면 */
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+}

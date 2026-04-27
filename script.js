@@ -820,32 +820,37 @@ async function loadHeroSkills() {
     });
 
     function showDetail(hero) {
-        const detailContent = document.getElementById('detail-content');
+    const detailContent = document.getElementById('detail-content');
 
-        detailContent.innerHTML = `
-            <div class="detail-header">
-                <img src="${hero.hero_image}">
+    detailContent.innerHTML = `
+        <div class="detail-header">
+            <!-- 이미지 옆에 합류일 정보를 묶어서 배치하기 위해 hero-info 추가 -->
+            <img src="${hero.hero_image}" alt="${hero.hero}">
+            <div class="hero-info">
+                ${hero.joining_date ? `<p class="joining-date">모험 합류일: ${hero.joining_date}</p>` : ''}
             </div>
-            <div class="skill-list">
-                ${hero.skills.map(skill => `
-                    <div class="skill-item">
-                        <div class="skill-title-row">
-                            <span class="skill-tag category-${skill.category}">${skill.category}</span>
-                            <span class="skill-name">${skill.name}</span>
-                            <span class="upgrade-badge">+${skill.upgrade}강</span>
-                        </div>
-                        <div class="skill-desc">
-                            ${skill.description || ''}
-                        </div>
-                        <div class="skill-meta">
-                            ${skill.range ? `<span class="meta-item">사거리 : ${skill.range}</span>` : ''} 
-                            ${skill.cooldown ? `<span class="meta-item">쿨타임 : ${skill.cooldown}</span>` : ''}
-                        </div>
+        </div>
+        
+        <div class="skill-list">
+            ${hero.skills.map(skill => `
+                <div class="skill-item">
+                    <div class="skill-title-row">
+                        <span class="skill-tag category-${skill.category}">${skill.category}</span>
+                        <span class="skill-name">${skill.name}</span>
+                        <span class="upgrade-badge">+${skill.upgrade}강</span>
                     </div>
-                `).join('')}
-            </div>
-        `;
-    }
+                    <div class="skill-desc">
+                        ${(skill.description || '').replace(/(\d+(\.\d+)?%?)/g, '<span class="stat-highlight">$1</span>')}
+                    </div>
+                    <div class="skill-meta">
+                        ${skill.range ? `<span class="meta-item">사거리 : ${skill.range}</span>` : ''} 
+                        ${skill.cooldown ? `<span class="meta-item">쿨타임 : ${skill.cooldown}</span>` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
 }
 
 loadHeroSkills();
