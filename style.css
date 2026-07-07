@@ -1426,18 +1426,9 @@ body.dark-mode .modal-content {
     border-color: #444 !important;
 }
 
-
-/* 영웅 그리드: 폰 화면에선 3열, PC에선 5~6열 */
-.hero-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
 .hero-thumb {
     cursor: pointer;
-    border-radius: 8px; /* 약간의 곡률만 주어 부드러운 사각형으로 만듦 */
+    border-radius: 6px; /* 약간의 곡률만 주어 부드러운 사각형으로 만듦 */
     transition: transform 0.2s, border 0.2s;
     border: 2px solid transparent;
     overflow: hidden;
@@ -1445,22 +1436,15 @@ body.dark-mode .modal-content {
 
 /* 활성화되었을 때 사각형 테두리 강조 */
 .hero-thumb.active { 
-    border-color: #d32f2f; 
+    border-color: #4CAF50; 
     box-shadow: 0 0 8px rgba(211,47,47,0.4); 
 }
 
 .hero-thumb:hover { transform: scale(1.1); }
-.hero-thumb.active { border-color: #d32f2f; box-shadow: 0 0 10px rgba(211,47,47,0.5); }
 
 .hero-thumb img { width: 100%; display: block; }
 
-/* 상세 카드 디자인 */
-.hero-detail-card {
-    background: var(--card-bg); /* 기존 변수 활용 */
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #ddd;
-}
+
 
 .detail-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
 
@@ -1468,66 +1452,11 @@ body.dark-mode .modal-content {
 .detail-header img { 
     width: 100px; /* 크기를 조금 키웠습니다 */
     border-radius: 8px; 
-    border: 2px solid #d32f2f; 
     object-fit: cover; /* 이미지가 찌그러지지 않게 */
 }
 
-.skill-item {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-left: 4px solid #d32f2f;
-    background: rgba(0,0,0,0.03);
-}
-
-.skill-tag { 
-    font-size: 11px; padding: 2px 6px; border-radius: 4px; color: #fff; margin-right: 5px;
-}
-.category-기본 { background: #666; }
-.category-특수 { background: #1976d2; }
-.category-궁극 { background: #7b1fa2; }
-
 /* 제목은 항상 중앙 */
 .page-title { text-align: center; margin-bottom: 30px; }
-
-/* 2단 레이아웃 설정 */
-.hero-app-layout {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    max-width: 1000px; /* PC에서 너무 퍼지지 않게 적당히 제한 */
-    margin: 0 auto;
-}
-
-/* 왼쪽 그리드 (고정 폭) */
-.hero-grid {
-    flex: 0 0 350px; /* PC에서 목록 영역 너비 고정 */
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4열 고정 */
-    gap: 10px;
-}
-
-/* 오른쪽 상세 카드 (남은 공간 다 쓰기) */
-.hero-detail-card {
-    flex: 1;
-    min-height: 400px;
-    background: #fff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: sticky; /* 스크롤 따라오게 설정 */
-    top: 20px;
-}
-
-/* 모바일 대응 (화면이 작아지면 다시 위아래로) */
-@media (max-width: 768px) {
-    .hero-app-layout { flex-direction: column; }
-    .hero-grid { 
-        flex: none; 
-        width: 100%; 
-        grid-template-columns: repeat(5, 1fr); /* 모바일은 5열 */
-    }
-    .hero-detail-card { width: 100%; position: static; }
-}
 
 /* 안내 문구 스타일 */
 .placeholder-text {
@@ -1540,6 +1469,7 @@ body.dark-mode .modal-content {
 .hero-app-layout {
     display: flex;
     gap: 20px;
+    align-items: flex-start;
     max-width: 1000px;
     margin: 0 auto;
     padding: 10px; /* 양옆 여백을 주어 화면 끝에 붙지 않게 함 */
@@ -1549,9 +1479,11 @@ body.dark-mode .modal-content {
 .hero-grid {
     flex: 0 0 320px; 
     display: grid;
+    margin-bottom: 30px;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
+
 
 /* 오른쪽 상세 카드 (다크모드 적용) */
 .hero-detail-card {
@@ -1559,7 +1491,7 @@ body.dark-mode .modal-content {
     /* 고정된 색상 대신 변수 사용 */
     background: var(--card-bg, #1e1e1e); 
     color: var(--text-color, #e0e0e0);
-    
+
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
@@ -1567,6 +1499,7 @@ body.dark-mode .modal-content {
     position: sticky;
     top: 20px;
     min-width: 0;
+    min-height: 400px;
 }
 
 /* 모바일 대응 (반응형) */
@@ -1586,14 +1519,6 @@ body.dark-mode .modal-content {
     }
 }
 
-/* 스킬 아이템 디자인 (다크모드용) */
-.skill-item {
-    margin-bottom: 15px;
-    padding: 12px;
-    border-left: 4px solid #d32f2f;
-    border-radius: 0 8px 8px 0;
-}
-
 /* 카테고리 태그 공통 스타일 (다크모드용) */
 .skill-tag {
     font-size: 10px;
@@ -1601,6 +1526,7 @@ body.dark-mode .modal-content {
     border-radius: 4px;
     color: #fff;
     text-transform: uppercase;
+    margin-right: 5px;
 }
 
 .category-기본 { background: #444; }
@@ -1615,29 +1541,6 @@ body.dark-mode .modal-content {
     /* 라이트 모드일 때 너무 어둡지 않게 투명도 조절 */
     background: var(--item-bg, rgba(0, 0, 0, 0.05)); 
     border-radius: 0 10px 10px 0;
-}
-
-.skill-title-row {
-    font-weight: bold;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    color: var(--text-color); /* 테마에 맞게 자동 조절 */
-}
-
-.skill-desc {
-    font-size: 13px;
-    color: var(--text-muted, #888); /* 조금 흐린 텍스트 색상 */
-    margin-top: 10px;
-    line-height: 1.6;
-}
-
-.upgrade-badge {
-    color: #ffca28; /* 노란색은 라이트/다크 모두 잘 보임 */
-    font-size: 12px;
-    font-weight: bold;
 }
 
 /* 스킬 제목 줄 */
@@ -1660,6 +1563,7 @@ body.dark-mode .modal-content {
 .upgrade-badge {
     color: #ffca28;
     font-size: 13px;
+    font-weight: bold;
     background: rgba(255, 202, 40, 0.1);
     padding: 2px 6px;
     border-radius: 4px;
@@ -1678,12 +1582,8 @@ body.dark-mode .modal-content {
 .skill-meta {
     font-size: 12px;
     margin-top: 10px;
-    color: #ff5252; /* 강조색은 그대로 유지 */
     font-weight: bold;
     opacity: 0.9;
-}
-
-.skill-meta {
     display: flex;
     gap: 15px; /* 항목 사이의 간격을 15px만큼 띄움 */
     align-items: center;
@@ -1695,13 +1595,6 @@ body.dark-mode .modal-content {
     content: "|";
     margin-right: 15px;
     color: #ccc;
-}
-
-/* 숫자 및 % 강조 스타일 */
-.stat-highlight {
-    color: #ffffff;      /* 흰색으로 강조 */
-    font-weight: bold;   /* 굵게 해서 더 눈에 띄게 */
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 살짝 빛나는 효과 (선택사항) */
 }
 
 /* 라이트 모드에서는 배경이 밝으므로, 흰색 대신 조금 더 진한 색이나 배경색을 주어 대비를 높일 수 있습니다 */
@@ -1722,4 +1615,300 @@ body.dark-mode .stat-highlight {
     letter-spacing: 0.5px; /* 숫자와 소수점 사이를 아주 미세하게 띄워 가독성 상승 */
     /* 다크모드에서 더 빛나게 하고 싶다면 */
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+}
+
+
+/* enchant          */
+
+/* --- 인챈트 페이지 전용 스타일 --- */
+.tab-menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border, #ccc);
+    padding-bottom: 10px;
+}
+.tab-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+.tab-btn.active {
+    background-color: var(--primary, #4CAF50);
+    color: white;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* 레이아웃 구조 (위아래 정렬 및 최대너비 보호) */
+.enchant-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    max-width: 800px; /* 👈 컨테이너 너비와 맞춰서 쏠림 현상 방지 */
+    margin: 0 auto;
+}
+
+.enchant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 👈 아이콘 크기 최적화 */
+    gap: 15px;
+    margin-top: 15px;
+    width: 100%;
+}
+.enchant-list-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px 5px;
+    text-align: center;
+    background: rgba(0,0,0,0.05);
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+body.dark-mode .enchant-list-item {
+    background: rgba(255,255,255,0.05);
+}
+.enchant-list-item:hover, .enchant-list-item.active {
+    border-color: var(--primary);
+    background: rgba(0,0,0,0.08);
+}
+body.dark-mode .enchant-list-item:hover, body.dark-mode .enchant-list-item.active {
+    background: rgba(255,255,255,0.1);
+}
+.enchant-list-item img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+/* 👈 이름 짤림 방지 및 자동 줄바꿈 핵심 스타일 */
+.enchant-item-name {
+    font-size: 11px;
+    line-height: 1.3;
+    margin: 0;
+    word-break: keep-all;     /* 단어 단위 줄바꿈 */
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;      /* 줄바꿈 허용 */
+    text-align: center;
+}
+
+.item-multi-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.item-multi-box img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* 상세 정보 창 디자인 */
+.detail-card {
+    background-color: var(--card, #fff);
+    border: 1px solid var(--border, #eee);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    color: var(--text, #333);
+    width: 100%;
+    box-sizing: border-box;
+}
+.detail-card h2, .detail-card h3, .detail-card h4 {
+    color: var(--text, #333);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.rune-detail-block {
+    border-top: 1px dashed var(--border, #ccc);
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.mat-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+.mat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: rgba(0,0,0,0.03);
+    color: var(--text, #333);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border, transparent);
+}
+body.dark-mode .mat-item {
+    background-color: rgba(255,255,255,0.05);
+}
+.mat-item img, .sim-materials img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+.highlight-num {
+    color: #ff4757;
+    font-weight: bold;
+}
+
+/* 스킬 설명 상자 디자인 격리 */
+.sim-skill-desc-box {
+    font-size: 0.9rem;
+    margin-left: 10px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+body.dark-mode .sim-skill-desc-box {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 시뮬레이터 */
+.simulator-layout {
+    background-color: var(--card, #fff);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border, #eee);
+    color: var(--text);
+    max-width: 800px;
+    margin: 0 auto;
+}
+.sim-selector-zone {
+    margin-bottom: 15px;
+}
+.sim-selector-zone select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.sim-main-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+@media (max-width: 768px) {
+    .sim-main-box { grid-template-columns: 1fr; }
+}
+.action-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+.action-btn:hover { background-color: #27ae60; }
+.sim-result-card {
+    background: rgba(0,0,0,0.02);
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 200px;
+}
+body.dark-mode .sim-result-card {
+    background: rgba(255,255,255,0.02);
+}
+
+.action-btn:active {
+    transform: scale(0.99); /* 누를 때 살짝 줄어듦 */
+    background-color: var(--primary); /* 약간 더 진해짐 */
+    transition: transform 0.1s;
+}
+
+/* ==========================================
+   ✨ 인챈트 시뮬레이터 이펙트 효과 (최종 통합본)
+   ========================================== */
+
+/* [기본 상태] 토글이 꺼져있을 때는 라이트/다크 모드의 기본 글자색을 따릅니다 */
+#sim-result-display .highlight-num {
+    color: var(--text);
+    font-weight: bold;
+    text-shadow: none !important;
+    -webkit-text-stroke: 0 !important;
+    background: none !important;
+    filter: none !important;
+}
+
+/* --------------------------------------------------
+   ✨ [이펙트 ON] 토글 스위치가 켜졌을 때 (.effects-on)
+   -------------------------------------------------- */
+
+/* 🟢 80% ~ 89% : 선명하고 맑은 게임용 초록색 */
+#sim-result-display.effects-on .eff-green,
+#sim-result-display.effects-on .eff-green .highlight-num {
+    color: #2ecc71 !important; /* 형광빛이 살짝 도는 에메랄드 그린 */
+}
+
+/* 🔴 90% ~ 99% : 눈에 확 띄는 밝은 레디쉬 오렌지/레드 */
+#sim-result-display.effects-on .eff-red,
+#sim-result-display.effects-on .eff-red .highlight-num {
+    color: #ff3838 !important; /* 쨍하고 화사한 네온 핑크빛 레드 */
+}
+
+/* 🩸 100% (MAX) : 딥 레드 + 선명한 붉은색 네온 후광 */
+#sim-result-display.effects-on .eff-max,
+#sim-result-display.effects-on .eff-max .highlight-num {
+    color: #ff3838 !important; /* 눈에 확 띄는 선명한 레드 */
+    font-weight: 900 !important;
+    
+    /* 💡 글자 주변으로 붉은색 아우라가 퍼지는 효과 */
+    text-shadow: 0 0 1px #b71c1c, 0 0 1px #b71c1c !important; 
+}
+
+/* 👑 [잭팟후광] 90% 이상 + 스킬맥스일 때만 발동 */
+/* 👑 [잭팟] 테두리가 살아 숨쉬는 듯한 효과 */
+#sim-result-display.effects-on.eff-jackpot {
+    border: 2px solid #ffcc00 !important; /* 더 선명한 황금색 테두리 */
+    background-color: var(--card-bg) !important;
+    
+    /* 💡 jackpotGlow 애니메이션을 부드럽게(ease-in-out) 무한 반복 */
+    animation: jackpotGlow 1.5s infinite alternate ease-in-out !important;
+}
+
+/* ✨ 숨쉬는 효과의 핵심 연료 (애니메이션 정의) */
+@keyframes jackpotGlow {
+    0% {
+        /* 숨을 들이쉴 때: 은은한 노란 빛 */
+        box-shadow: 0 0 6px #ffcc00, inset 0 0 4px #ffcc00;
+    }
+    100% {
+        /* 숨을 내쉴 때: 강렬하게 뿜어져 나오는 황금빛 후광 */
+        box-shadow: 0 0 25px #ff9f43, inset 0 0 12px #ff9f43;
+        border-color: #ff9f43 !important; /* 테두리 색상도 같이 동기화 */
+    }
 }

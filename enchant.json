@@ -1,0 +1,205 @@
+[
+  {
+    "id": 1,
+    "location": "팔라딘의 사원",
+    "rune_name": "영광의 룬",
+    "rune_image": "images/enchant/e1-rune.png",
+    "success_rate": 100,
+    "cost": "룬스톤 1,000개",
+    "items": [
+      {
+        "item_name": "빛나는 영광의 반지",
+        "item_image": "images/enchant/e1-item.png"
+      }
+    ],
+    "materials": [
+      { "name": "금빛마정석", "img": "images/enchant/e1-ing1.png", "count": 100 },
+      { "name": "골드", "img": "images/enchant/gold.png", "count": "2억" }
+    ],
+    "craft_rate": 100,
+    "stats": [
+      { "stat_name": "공격력 증폭", "min": 30.0, "max": 100.0, "unit": "%" },
+      { "stat_name": "모험 추가 피해", "min": 5.0, "max": 20.0, "unit": "%" }
+    ],
+    "skill_info": { "has_skill": false }
+  },
+  {
+    "id": 2,
+    "location": "블루드래곤의 둥지",
+    "rune_name": "세계수의 정수",
+    "rune_image": "images/enchant/e2-rune.png",
+    "success_rate": 100,
+    "cost": "룬스톤 3,000개",
+    "items": [
+      {
+        "item_name": "세계의 반지",
+        "item_image": "images/enchant/e2-item.png"
+      }
+    ],
+    "materials": [
+      { "name": "초월의 영약", "img": "images/enchant/e2-ing1.png", "count": 10 },
+      { "name": "상급 금빛마정석", "img": "images/enchant/e2-ing2.png", "count": 100 },
+      { "name": "금빛 다이아몬드", "img": "images/enchant/e2-ing3.png", "count": 10 },
+      { "name": "블루 다이아몬드", "img": "images/enchant/e2-ing4.png", "count": 10 },
+      { "name": "골드", "img": "images/enchant/gold.png", "count": "7억" }
+    ],
+    "craft_rate": 100,
+    "stats": [
+      { "stat_name": "공격력", "min": 30000, "max": 100000, "unit": "" }
+    ],
+    "skill_info": {
+      "has_skill": true,
+      "skill_name": "세계의 가호",
+      "base_desc": "세계의 가호를 얻어 5초 동안 다음 능력치를 획득합니다.<br>• 치명타 피해량 : $1 증가<br>• 회피 : $2 증가<br>• 초당 체력 회복 : $3<br>*조건 : 궁극스킬 사용 시 발동<br>사정거리 : 20<br>기본 재사용 대기시간 : 5초",
+      "levels": [
+        { "level": 1, "values": ["1000%", "30", "100,000"], "rate": 50 },
+        { "level": 2, "values": ["1750%", "50", "200,000"], "rate": 35 },
+        { "level": 3, "values": ["2500%", "70", "300,000"], "rate": 15 }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "location": "유황 동굴",
+    "rune_name": "찬란한 영광의 룬",
+    "rune_image": "images/enchant/e3-rune.png",
+    "success_rate": 100,
+    "cost": "보석 700개",
+    "items": [
+      {
+        "item_name": "해방된 영광의 지팡이",
+        "item_image": "images/enchant/e3-item.png"
+      }
+    ],
+    "materials": [
+      { "name": "영광의 룬", "img": "images/enchant/e3-ing1.png", "count": 1 },
+      { "name": "검은날개", "img": "images/enchant/e3-ing2.png", "count": 1 },
+      { "name": "빛나는 유황석", "img": "images/enchant/e3-ing3.png", "count": 10 },
+      { "name": "골드", "img": "images/enchant/gold.png", "count": "4억" }
+    ],
+    "craft_rate": 100,
+    "stats": [
+      { "stat_name": "타격당 추가 데미지", "min": 1000.0, "max": 2000.0, "unit": "%" },
+      { "stat_name": "특수스킬 쿨타임 감소", "min": 30.0, "max": 60.0, "unit": "%" }
+    ],
+    "skill_info": {
+      "has_skill": true,
+      "skill_name": "천벌의 서약",
+      "base_desc": "천벌을 맹세한 사라는 특수스킬 피해량이 30초 동안 $1만큼 증가합니다.<br>사정거리 : 20<br>기본 재사용 대기시간 : 1초",
+      "levels": [
+        { "level": 1, "values": ["200%"], "rate": 50 },
+        { "level": 2, "values": ["300%"], "rate": 35 },
+        { "level": 3, "values": ["400%"], "rate": 15 }
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "location": "악마의 분화구",
+    "has_multiple_runes": true,
+    "runes": [
+      {
+        "type": "a",
+        "rune_name": "불안정한 드래곤의 봉인석",
+        "rune_image": "images/enchant/e4-rune-a.png",
+        "success_rate": 100,
+        "cost": "보석 400개",
+        "items": [{ "item_name": "드래곤슬레이어", "item_image": "images/enchant/e4-item.png" }],
+        "materials": [
+          { "name": "악마왕의 마나석", "img": "images/enchant/e4-ing1.png", "count": 4 },
+          { "name": "블루 다이아몬드", "img": "images/enchant/e4-ing2.png", "count": 2 },
+          { "name": "아몬의 핵", "img": "images/enchant/e4-ing3.png", "count": 20 },
+          { "name": "금빛 다이아몬드", "img": "images/enchant/e4-ing4.png", "count": 1 },
+          { "name": "골드", "img": "images/enchant/gold.png", "count": "50억" }
+        ],
+        "craft_rate": 50,
+        "stats": [
+          { "stat_name": "공격력", "min": 200000, "max": 900000, "unit": "" },
+          { "stat_name": "기본스킬 피해량 증가", "min": 50.0, "max": 150.0, "unit": "%" }
+        ],
+        "skill_info": {
+          "has_skill": true,
+          "skill_name": "드래곤의 권능",
+          "base_desc": "드래곤의 권능을 얻어 30초 동안 보스에게 주는 피해량이 $1 만큼 증가합니다.<br>사정거리 : 20<br>기본 재사용 대기시간 : 1초",
+          "levels": [
+            { "level": 1, "values": ["10%"], "rate": 70 },
+            { "level": 2, "values": ["20%"], "rate": 25 },
+            { "level": 3, "values": ["40%"], "rate": 5 }
+          ]
+        }
+      },
+      {
+        "type": "b",
+        "rune_name": "찬란한 드래곤의 봉인석",
+        "rune_image": "images/enchant/e4-rune-b.png",
+        "success_rate": 100,
+        "cost": "보석 9,000개",
+        "items": [{ "item_name": "드래곤슬레이어", "item_image": "images/enchant/e4-item.png" }],
+        "materials": [],
+        "craft_rate": "??",
+        "stats": [
+          { "stat_name": "공격력", "min": 800000, "max": 1100000, "unit": "" },
+          { "stat_name": "기본스킬 피해량 증가", "min": 150.0, "max": 200.0, "unit": "%" }
+        ],
+        "skill_info": {
+          "has_skill": true,
+          "skill_name": "드래곤의 권능",
+          "base_desc": "드래곤의 권능을 얻어 30초 동안 보스에게 주는 피해량이 $1 만큼 증가합니다.<br>사정거리 : 20<br>기본 재사용 대기시간 : 1초",
+          "levels": [
+            { "level": 3, "values": ["40%"], "rate": 100 }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "location": "균열의 제단",
+    "rune_name": "초월의 룬",
+    "rune_image": "images/enchant/e5-rune.png",
+    "success_rate": 100,
+    "cost": "룬스톤 2,000개",
+    "items": [
+      { "item_name": "초월의 검", "item_image": "images/enchant/e5-item-a.png" },
+      { "item_name": "초월의 지팡이", "item_image": "images/enchant/e5-item-b.png" },
+      { "item_name": "뒤틀린 초월의 검", "item_image": "images/enchant/e5-item-c.png" },
+      { "item_name": "홍염의 지팡이", "item_image": "images/enchant/e5-item-d.png" }
+    ],
+    "materials": [
+      { "name": "봉인된 초월의 룬", "img": "images/enchant/e5-ing1.png", "count": 1 },
+      { "name": "균열의 결정", "img": "images/enchant/e5-ing2.png", "count": 30 },
+      { "name": "골드", "img": "images/enchant/gold.png", "count": "10억" }
+    ],
+    "craft_rate": 100,
+    "stats": [
+      { "stat_name": "모험 추가 피해", "min": 7.0, "max": 20.0, "unit": "%" }
+    ],
+    "skill_info": { "has_skill": false }
+  },
+  {
+    "id": 6,
+    "location": "균열의 제단",
+    "rune_name": "승리의 인장",
+    "rune_image": "images/enchant/e6-rune.png",
+    "success_rate": 100,
+    "cost": "룬스톤 20,000개",
+    "items": [
+      {
+        "item_name": "영웅의 성검",
+        "item_image": "images/enchant/e6-item.png"
+      }
+    ],
+    "materials": [
+      { "name": "초월의 룬", "img": "images/enchant/e6-ing1.png", "count": 10 },
+      { "name": "황금 결정", "img": "images/enchant/e6-ing2.png", "count": 50 },
+      { "name": "골드", "img": "images/enchant/gold.png", "count": "100" }
+    ],
+    "craft_rate": 100,
+    "stats": [
+      { "stat_name": "피해량 증가", "min": 35.0, "max": 40.0, "unit": "%" },
+      { "stat_name": "특수스킬 피해량 증가", "min": 300.0, "max": 330.0, "unit": "%" },
+      { "stat_name": "모험 추가 피해", "min": 100.0, "max": 110.0, "unit": "%" }
+    ],
+    "skill_info": { "has_skill": false }
+  }
+]

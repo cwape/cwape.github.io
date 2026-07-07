@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RacyBot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./favicon.png" type="image/png">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="nav-section left">
+                <button class="hamburger-btn" onclick="toggleNavMenu()">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <div id="navDropdown" class="nav-content">
+                    <a href="statcalc.html">레벨 포인트</a>
+                    <a href="hero-legend.html">영웅 강화</a>
+                    <a href="hero-skill.html">영웅 스킬</a>
+                    <a href="one-level.html">유일 레벨</a>
+                    <a href="enchant.html">인챈트</a>
+
+                    <div class="menu-dark-mode">
+                        <span class="theme-text">Dark Mode</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-section center">
+                <a href="index.html" class="logo-badge">Racy Bot</a>
+            </div>
+
+            <div class="nav-section right"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="switchTab('info-tab')">인챈트 정보</button>
+            <button class="tab-btn" onclick="switchTab('sim-tab')">인챈트 시뮬레이터</button>
+        </div>
+
+        <div id="info-tab" class="tab-content active">
+            <div class="enchant-layout">
+                <aside class="enchant-list-side">
+                    <h2>인챈트 대상 선택</h2>
+                    <div id="enchant-item-list" class="enchant-grid">
+                    </div>
+                </aside>
+
+                <main class="enchant-detail-side">
+                    <div id="enchant-detail-card" class="detail-card">
+                        <p class="placeholder-text">인챈트 대상을 선택하시면 상세 정보가 표시됩니다.</p>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <div id="sim-tab" class="tab-content">
+            <div class="simulator-layout">
+                <!-- 기존 sim-selector-zone 영역을 찾아서 아래 코드로 교체하세요 -->
+                <div class="sim-selector-zone"
+                    style="margin-bottom: 20px; font-size: 1.05rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <label for="sim-target-select" style="font-weight: bold;">대상 아이템 선택 : </label>
+                        <select id="sim-target-select" onchange="initSimulator()">
+                        </select>
+                    </div>
+
+                    <!-- ✨ 이펙트 On/Off 토글 추가 -->
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 0.95rem; font-weight: bold; color: var(--text);">이펙트 표시</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="sim-effect-toggle" onchange="document.getElementById('sim-result-display').classList.toggle('effects-on', this.checked)">
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="sim-main-box">
+                    <div class="sim-craft-section">
+                        <div id="sim-materials-display" class="sim-materials">
+                        </div>
+                        <button class="action-btn" onclick="runSimulation()">인챈트 시작</button>
+                    </div>
+                    <div class="sim-result-section">
+                        <div id="sim-result-display" class="sim-result-card">
+                            <p class="placeholder-text" style="color: gray; font-size: 0.95rem;">대상 아이템을 선택하고 인챈트 버튼을
+                                누르면 랜덤 옵션 결과가 표시됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="enchant.js"></script>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

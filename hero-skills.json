@@ -369,9 +369,9 @@
         "upgrade": 9,
         "name": "마력해방",
         "category": "궁극",
-        "description": "2350%",
-        "range": "?",
-        "cooldown": "?초"
+        "description": "전방으로 자신의 응축된 마력을 직선으로 발사 하여, 공격력의 2350%만큼의 피해를 최대 7회 가합니다",
+        "range": 12,
+        "cooldown": "3초"
       },
       {
         "upgrade": 12,
@@ -577,9 +577,9 @@
         "upgrade": 12,
         "name": "광휘의 세례",
         "category": "특수",
-        "description": "탄환당 최대 3명 1160%, 정령당 10발",
-        "range": "?",
-        "cooldown": "?초"
+        "description": "마력을 담은 화살 5개를 한번에 여러방향으로 발사하며, 각 화살은 적중시 폭발하여 좁은 범위의 적 3명에게 공격력의 6650%만큼의 피해를 가합니다",
+        "range": 20,
+        "cooldown": "12초"
       }
     ]
   },
@@ -609,16 +609,16 @@
         "upgrade": 9,
         "name": "퓨리",
         "category": "궁극",
-        "description": null,
-        "range": "?",
+        "description": "제이크가 광폭화 하여 15초 동안 기본스킬 피해량이 300% 증가합니다.",
+        "range": "전체",
         "cooldown": "즉시시전"
       },
       {
         "upgrade": 12,
         "name": "블루레퀴엠",
         "category": "특수",
-        "description": "최대10명 21100%",
-        "range": "?",
+        "description": "손끝에 생명과 마나의 힘을 응집하여, 단 한번의 공격만으로 적을 파괴하는 기술로, 최대 10명의 적에게 공격력의 21100% 만큼의 피해를 입힙니다.",
+        "range": 1.5,
         "cooldown": "9.1초"
       }
     ]
