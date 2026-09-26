@@ -820,37 +820,41 @@ async function loadHeroSkills() {
     });
 
     function showDetail(hero) {
-    const detailContent = document.getElementById('detail-content');
+        const detailContent = document.getElementById('detail-content');
 
-    detailContent.innerHTML = `
-        <div class="detail-header">
-            <!-- 이미지 옆에 합류일 정보를 묶어서 배치하기 위해 hero-info 추가 -->
-            <img src="${hero.hero_image}" alt="${hero.hero}">
-            <div class="hero-info">
-                ${hero.joining_date ? `<p class="joining-date">모험 합류일: ${hero.joining_date}</p>` : ''}
-            </div>
-        </div>
-        
-        <div class="skill-list">
-            ${hero.skills.map(skill => `
-                <div class="skill-item">
-                    <div class="skill-title-row">
-                        <span class="skill-tag category-${skill.category}">${skill.category}</span>
-                        <span class="skill-name">${skill.name}</span>
-                        <span class="upgrade-badge">+${skill.upgrade}강</span>
-                    </div>
-                    <div class="skill-desc">
-                        ${(skill.description || '').replace(/(\d+(\.\d+)?%?)/g, '<span class="stat-highlight">$1</span>')}
-                    </div>
-                    <div class="skill-meta">
-                        ${skill.range ? `<span class="meta-item">사거리 : ${skill.range}</span>` : ''} 
-                        ${skill.cooldown ? `<span class="meta-item">쿨타임 : ${skill.cooldown}</span>` : ''}
-                    </div>
+        detailContent.innerHTML = `
+            <div class="detail-header">
+                <img src="${hero.hero_image}" alt="${hero.hero}">
+                <div class="hero-info">
+                    ${hero.joining_date ? `<p class="joining-date">모험 합류일: ${hero.joining_date}</p>` : ''}
+                    ${hero.position ? `<div class="hero-position-tag position-${hero.position}">${hero.position}</div>` : ''}
                 </div>
-            `).join('')}
-        </div>
-    `;
-}
+            </div>
+            
+            <div class="skill-list">
+                ${hero.skills.map(skill => `
+                    <div class="skill-item">
+                        <div class="skill-title-row">
+                            <span class="skill-tag category-${skill.category}">${skill.category}</span>
+                            <span class="skill-name">${skill.name}</span>${skill.damage_type ? `<span class="skill-damage-tag damage-${skill.damage_type}">${skill.damage_type}</span>` : ''}
+                            <span class="upgrade-badge">+${skill.upgrade}강</span>
+                        </div>
+                        <div class="skill-desc">
+                            ${(skill.description || '')
+                                .replace(/(\d+(\.\d+)?%?)/g, '<span class="stat-highlight">$1</span>')
+                                .replace(/(물리피해)/g, '<span class="damage-text-highlight 물리피해">$1</span>')
+                                .replace(/(마법피해)/g, '<span class="damage-text-highlight 마법피해">$1</span>')
+                            }
+                        </div>
+                        <div class="skill-meta">
+                            ${skill.range ? `<span class="meta-item">사거리 : ${skill.range}</span>` : ''} 
+                            ${skill.cooldown ? `<span class="meta-item">쿨타임 : ${skill.cooldown}</span>` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
 }
 
 loadHeroSkills();
